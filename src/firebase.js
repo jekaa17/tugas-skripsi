@@ -1,4 +1,6 @@
-import { initializeApp } from "firebase/app";
+import {initializeApp} from "firebase/app";
+import { getStorage } from "@firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -9,10 +11,14 @@ import {
   getFirestore,
   addDoc,
   collection,
+  setDoc,
   getDocs,
   query,
-  where
+  where,
+  doc
 } from "firebase/firestore";
+
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyC0CniFAIZ4KPBFfSwbLuRI5h6u3lzKyk8",
@@ -24,6 +30,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const logInWithEmailAndPassword = async (email, password) => {
@@ -35,15 +42,22 @@ const logInWithEmailAndPassword = async (email, password) => {
     }
   };
 
-const registerWithEmailAndPassword = async (name, email, password) => {
+const registerWithEmailAndPassword = async (name, email, password, subject) => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
+      // let subjects = ["Bahasa Indonesia","Mat"];
       const user = res.user;
+      // if(subject === "IPA")
+      //   subjects.push("IPA")
+      // if(subject==="IPS")
+      //   subjects.push("IPS")
+      
       await addDoc(collection(db, "users"), {
         uid: user.uid,
         name,
         authProvider: "local",
         email,
+        subjects:(subject === "IPA") ? ["Bahasa Indonesia","Mat","IPA"] : ["Bahasa Indonesia","Mat","IPS"]
       });
     } catch (err) {
       console.error(err);
@@ -51,18 +65,32 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     }
   };
 
-  const createNews = async (title, value, subjectId) => {
+  const createNews = async (title, value, subjectId, teacherId ) => {
     try {
-      await addDoc(collection(db, "news"), {
+      const uid = uuidv4();
+      await setDoc(doc(db, "news", uid), {
         title,
         value,
-        subjectId
+        subjectId,
+        uid,
+        teacherId
       });
     } catch (err) {
       console.error(err);
       alert("An error occured while uploading news");
     }
   };
+
+  const getNewsbyId = async (id) =>{
+    try{
+      const q = query(collection(db, "news"), where("uid", "==", id));
+      const querySnapshot = await getDocs(q);
+      return querySnapshot;
+    } catch (err) {
+      console.error(err);
+      alert("An error occured while get news");
+    }
+  }
 
   const getNews = async (subjectId) =>{
     try{
@@ -75,16 +103,30 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     }
   }
 
+  const getAssignmentByTeacherId= async (teacherId) =>{
+    try{
+      const q = query(collection(db, "news"), where("teacherId", "==", teacherId));
+      const querySnapshot = await getDocs(q);
+      return querySnapshot;
+    } catch (err) {
+      console.error(err);
+      alert("An error occured while get teacherId");
+    }
+  }
+
   const logout = () => {
     signOut(auth);
   };
   export {
     auth,
     db,
+    app,
+    storage,
     logInWithEmailAndPassword,
     registerWithEmailAndPassword,
     logout,
     getNews,
-    createNews,
-    
+    getNewsbyId,
+    getAssignmentByTeacherId,
+    createNews
   };

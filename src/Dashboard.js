@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import { auth, db, logout } from "./firebase";
+import { auth, db } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import AdminDashboard from "./AdminDashboard";
 import StudentDashboard from "./StudentDashboard";
 function Dashboard() {
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
   const [role,setRole] = useState("");
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ function Dashboard() {
     if(role==='student')
          return<StudentDashboard/>;
     if (role==='admin')
-        return<AdminDashboard/>;
+        return<AdminDashboard userId={user?.uid}/>;
 
     return <p> loading ... </p>;
 }

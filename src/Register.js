@@ -6,13 +6,19 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [subject, setSubject] = useState('');
   const register = () => {
     if (!name) {
         alert("Please enter name");
         return;
     } 
-    registerWithEmailAndPassword(name, email, password);
+    registerWithEmailAndPassword(name, email, password, subject);
   };
+
+  const handleChange = (event) =>{
+   setSubject(event.target.value)
+  }
+
   return (
     <div className="register">
       <div className="register__container">
@@ -37,6 +43,11 @@ function Register() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
+        <select required value={subject} onChange={handleChange}>
+          <option value="">Select option</option>
+          <option value="IPA">IPA</option>
+          <option value="IPS">IPS</option>
+        </select>
         <button className="register__btn" onClick={register}>
           Register
         </button>

@@ -1,38 +1,37 @@
 import React, {useState, useEffect} from 'react'
-import {storage, getNewsbyId, auth, db} from "./firebase"
+import {storage, getNewsbyId} from "./firebase"
 import {useLocation} from "react-router-dom"
 import {getDownloadURL, ref, uploadBytesResumable} from "@firebase/storage"
-import { useAuthState } from "react-firebase-hooks/auth";
-import { setDoc, doc } from 'firebase/firestore';
+import { collection, doc, getDocs, setDoc, updateDoc } from "firebase/firestore"; 
+import { db } from './firebase';
 
 //a custom hook that builds on useLocation to parse
 function useQuery() {
-    const{search} = useLocation();
-    
+    const{ search } = useLocation();
     return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
-
-function AssgDetails() {
+function TeacherAssignmentDetails() {
     const [progress, setProgress] =useState(0);
     const [news, setNews] =useState();
-    const [user] = useAuthState(auth);
-    const {state} = useLocation();
-    const {name} = state;
+    const [assignments, setAssignments] = useState([]);
+
     let query = useQuery();
     const assignmentId = query.get("id")
     const formHandler = (e) =>{
         e.preventDefault();
         const file = e.target[0].files[0];
         uploadFiles(file);
+        updateFileName(file);
     };
 
-    const uploadAnswertoDb = async (downloadURL) =>{
-        await setDoc(doc(db,"news", assignmentId, "submission", user?.uid), {
-            studentId : user?.uid,
-            downloadUrl : downloadURL,
-            name : name
-        })
+    async function updateFileName(file){
+        if(!file) return;
+        const docRef = doc(db, "news", query.get("id"));
+
+        await updateDoc( docRef, {
+            "fileName": `/files/${file.name}`
+        });
     }
 
     const uploadFiles = (file) =>{
@@ -47,12 +46,26 @@ function AssgDetails() {
             setProgress(prog);
         },
         (err)=> console.log(err),
-        async() =>{
+        async () =>{ 
+            const docRef = doc(db, "news", query.get("id"));
             const downloadUrl = await getDownloadURL(uploadTask.snapshot.ref)
-            uploadAnswertoDb(downloadUrl)
+            await updateDoc( docRef, {
+                "fileName": downloadUrl
+            });
         }
         );
     }
+
+    const addScore = async () => {
+
+        await setDoc(doc(db,"news", assignmentId, "submission", "CNMlDyGhJhgEpBvbs3evnqYLjQQ2"), {
+            studentId : "CNMlDyGhJhgEpBvbs3evnqYLjQQ2",
+            // downloadUrl : downloadURL,
+            // name : name,
+            score : 80
+        })
+    }
+    addScore();
 
     const fetchNews = async () => {
         try{
@@ -63,10 +76,14 @@ function AssgDetails() {
          alert("error while load news")
         }
       }
-      useEffect(() => {
+        useEffect (async() => {
         if (!assignmentId)
          return;
         fetchNews();
+        const docsSnap = await getDocs(collection(db, `news/${assignmentId}/submission`));
+        docsSnap.forEach((doc) =>{
+            setAssignments(assignments => [...assignments, doc.data()])
+        });
       }, []);
 
     if(!news)
@@ -78,8 +95,6 @@ function AssgDetails() {
                 <h1>{news.Title} </h1>
                 <h2>{news.subjectId} </h2>
                 <p>{news.value} </p>
-                <a href={news.fileName} download >Click to download</a>
-                
             </div>
             <form onSubmit={formHandler}>
                 <input type="file" className="input"/>
@@ -87,10 +102,16 @@ function AssgDetails() {
             </form>
             <hr />
             <h3> Uploaded {progress}% </h3>
-            
+
+        {assignments.map((assg,index)=> 
+            <div key={index} > 
+             <a href={assg.downloadUrl} download >Click to download</a>
+            {/* <div>{assg.studentId}{' '}</div> */}
+            <div>{assg.name}</div>
+            </div>)}
         </div>
     );
     
 }
 
-export default AssgDetails
+export default TeacherAssignmentDetails

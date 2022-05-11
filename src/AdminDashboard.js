@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db, logout } from "./firebase";
+import { auth, db, logout, getAssignmentByTeacherId } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import Register from "./Register";
+import { Link } from "react-router-dom";
 import NewsForm from "./NewsForm";
 
-function AdminDashboard() {
+
+function AdminDashboard(props) {
   const [user] = useAuthState(auth);
   const [name, setName] = useState("");
-  
+  const [news, setNews] = useState([]);
+
   const fetchUserName = async () => {
     try {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -21,9 +24,27 @@ function AdminDashboard() {
     }
 
   };
+
+  const updateAssignment = async () => {
+    try{
+      setNews([]);
+      const querySnapshot = await getAssignmentByTeacherId(props.userId);  
+      querySnapshot.forEach((doc) => {
+        setNews(news => [...news, doc.data()])
+      });
+    }catch (err) {
+      console.error(err);
+      alert("An error occured while updating assignment");
+    }
+  } 
+  
+
   useEffect(() => {
     fetchUserName();
+    if (props.userId)
+      updateAssignment();
   }, [user]);
+
   return (
     <div className="dashboard">
        <div className="dashboard__container">
@@ -35,7 +56,19 @@ function AdminDashboard() {
          </button>
        </div>
       <Register />
-      <NewsForm />
+      <NewsForm userId={props.userId} updateAssignment={updateAssignment} />
+      {news.map((update,index)=> 
+         <div key={index} > 
+           <span>{ update.title}{' '}</span>
+           <span>{ update.value}{' '}</span>
+           <span>{ update.subjectId}</span>
+           <Link
+            to={`/teacher/assignment?id=${update.uid}`}
+            className="btn btn-outline-primary"
+           >
+             Readmore
+           </Link>
+          </div>)}
      </div>
   );
 }

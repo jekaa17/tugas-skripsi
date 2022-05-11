@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
-import { auth, db, logout, getNews, getSubjects} from "./firebase";
+import { useNavigate, Link } from "react-router-dom";
+import { auth, db, logout, getNews} from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 
 
@@ -11,6 +11,11 @@ function StudentDashboard() {
   const [subjects,setSubjects] = useState([]);
   const [news, setNews] = useState([]);
   const navigate = useNavigate();
+
+  const toAssgDetails = (update) =>{
+    navigate(`/assignment?id=${update.uid}`,{state:{name: name}});
+  }
+
   const fetchUserDetails = async () => {
     try {
       const q = query(collection(db, "users"), where("uid", "==", user?.uid));
@@ -18,7 +23,6 @@ function StudentDashboard() {
       const data = doc.docs[0].data();
       setName(data.name);
       setSubjects(data.subjects);
-      console.log(data.subjects);
     } catch (err) {
       console.error(err);
       alert("An error occured while fetching user data");
@@ -71,6 +75,13 @@ function StudentDashboard() {
            <span>{ update.subjectId}</span>
            <span>{ update.title}</span>
            <span>{ update.value}</span>
+           <a 
+           
+            className="btn btn-link btn-outline-primary text-decoration-none"
+            onClick={()=>toAssgDetails(update)}
+           >
+             Readmore
+           </a>
          </div>)}
        </div>
      </div>
