@@ -1,23 +1,21 @@
-import React, {  useState } from "react";
-import {
-  registerWithEmailAndPassword,
-} from "./firebase";
+import React, { useState } from "react";
+import { registerWithEmailAndPassword } from "./firebase";
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [subject, setSubject] = useState('');
+  const [subject, setSubject] = useState("");
   const register = () => {
     if (!name) {
-        alert("Please enter name");
-        return;
-    } 
+      alert("Please enter name");
+      return;
+    }
     registerWithEmailAndPassword(name, email, password, subject);
   };
 
-  const handleChange = (event) =>{
-   setSubject(event.target.value)
-  }
+  const handleChange = (event) => {
+    setSubject(event.target.value);
+  };
 
   return (
     <div className="register">
@@ -28,7 +26,7 @@ function Register() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Full Name"
-        />  
+        />
         <input
           type="text"
           className="register__textBox"

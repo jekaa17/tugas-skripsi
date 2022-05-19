@@ -1,0 +1,161 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Red+Hat+Display:wght@500;700;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: "Poppins", sans-serif;
+}
+
+.app {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:hover {
+  background-color: #2747e8;
+}
+
+.page {
+  width: 1440px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 3rem;
+  width: 120rem;
+}
+
+.name div {
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #4460ef;
+}
+
+.name div:nth-child(2) {
+  font-size: 2rem;
+  font-weight: 500;
+  color: black;
+}
+
+.title h1 {
+  font-size: 5.7rem;
+  font-weight: 600;
+  color: #4460ef;
+  margin-bottom: 2rem;
+}
+
+.log {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.log h2 {
+  font-size: 2.3rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.log button {
+  width: 13.3rem;
+  height: 3.5rem;
+  border-radius: 15px;
+  border: none;
+  color: #ffffff;
+  background-color: #4460ef;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.underline {
+  margin: auto;
+  width: 123.2rem;
+  height: 3px;
+  background-color: #4460ef;
+  margin-bottom: 3rem;
+  margin-top: 0;
+}
+
+.board {
+  margin: auto;
+  width: 121.1rem;
+  background: rgba(68, 96, 239, 0.03);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 3rem;
+  margin-bottom: 5rem;
+}
+
+.head {
+  width: 101.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: -2rem;
+}
+
+.head h1 {
+  font-size: 3.8rem;
+  font-weight: 500;
+}
+
+.empty {
+  width: 12.5rem;
+}
+.assignment div {
+  width: 101.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3.2rem;
+}
+
+.assignment div span {
+  font-size: 1.8rem;
+  font-weight: 400;
+  padding-left: 0.5rem;
+  width: 17rem;
+  text-align: left;
+}
+
+.assignment div span:nth-child(2) {
+  padding-left: 5.3rem;
+}
+
+.assignment div span:nth-child(3) {
+  padding-left: 0rem;
+  overflow: hidden;
+}
+
+.assignment a {
+  width: 16.5rem;
+  height: 4.3rem;
+  background-color: #4460ef;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.8rem;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
