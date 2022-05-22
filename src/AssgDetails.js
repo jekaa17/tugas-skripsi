@@ -3,7 +3,8 @@ import { storage, getNewsbyId, auth, db } from "./firebase";
 import { useLocation } from "react-router-dom";
 import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { setDoc, doc, getDocs, collection } from "firebase/firestore";
+import { setDoc, doc, getDoc } from "firebase/firestore";
+import { formatDate, checkPassDueDate } from "./utils/DateHelper";
 
 //a custom hook that builds on useLocation to parse
 function useQuery() {
@@ -21,8 +22,9 @@ function AssgDetails() {
   const { name } = state;
   let query = useQuery();
   const assignmentId = query.get("id");
-  const formHandler = (e) => {
+  const formHandler = (e, dueDate) => {
     e.preventDefault();
+    if (!checkPassDueDate(dueDate.toDate())) return;
     const file = e.target[0].files[0];
     uploadFiles(file);
   };
@@ -72,13 +74,8 @@ function AssgDetails() {
   }, []);
 
   useEffect(async () => {
-    console.log("run");
     if (user?.uid) {
-      console.log(user.uid);
-      console.log(assignmentId);
-      console.log(`news/${assignmentId}/submission/${user?.uid}`);
-      // get score
-      const docref = await getDocs(
+      const docref = await getDoc(
         doc(db, `news/${assignmentId}/submission/${user?.uid}`)
       );
       setScore(docref.docs[0].data());
@@ -93,13 +90,19 @@ function AssgDetails() {
         <h1>{news.Title} </h1>
         <h2>{news.subjectId} </h2>
         <p>{news.value} </p>
+        <div>Due date:{formatDate(news.dueDate.toDate())}</div>
         <a href={news.fileName} download>
           Click to download
         </a>
       </div>
-      <form onSubmit={formHandler}>
+      <form onSubmit={(e) => formHandler(e, news.dueDate)}>
         <input type="file" className="input" />
-        <button type="submit">Upload</button>
+        <button
+          disabled={!checkPassDueDate(news.dueDate.toDate())}
+          type="submit"
+        >
+          Upload
+        </button>
       </form>
       <hr />
       <h3> Uploaded {progress}% </h3>

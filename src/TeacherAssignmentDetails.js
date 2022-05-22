@@ -92,8 +92,6 @@ function TeacherAssignmentDetails() {
     });
   }, []);
 
-  console.log(modal);
-
   if (!news) return <></>;
 
   return (

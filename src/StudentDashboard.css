@@ -11,6 +11,16 @@ html {
   font-family: "Poppins", sans-serif;
 }
 
+.image-card {
+  max-width: 163px !important;
+}
+
+.subject-image {
+  max-width: 163px;
+  height: 163px;
+  object-fit: cover;
+}
+
 .app {
   width: 100vw;
   display: flex;
