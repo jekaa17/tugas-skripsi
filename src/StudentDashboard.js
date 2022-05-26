@@ -140,7 +140,7 @@ function StudentDashboard() {
                   className="btn btn-link btn-outline-primary text-decoration-none"
                   onClick={() => toAssgDetails(update)}
                 >
-                  Readmore
+                  Read More
                 </button>
               </div>
             ))}

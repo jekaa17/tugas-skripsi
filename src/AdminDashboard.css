@@ -11,24 +11,6 @@ html {
   font-family: "Poppins", sans-serif;
 }
 
-.image-card {
-  max-width: 163px !important;
-}
-
-.subject-image {
-  max-width: 163px;
-  height: 163px;
-  object-fit: cover;
-}
-
-.app {
-  width: 100vw;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 button:hover {
   background-color: #2747e8;
 }
@@ -40,6 +22,87 @@ button:hover {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+}
+
+.admin-card {
+  width: 121.1rem;
+  height: 23.8rem;
+  background: rgba(68, 96, 239, 0.03);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 3.5rem;
+}
+
+.admin-flex {
+  width: 110.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.admin-card h1 {
+  font-size: 3.2rem;
+  font-weight: 400;
+  margin-bottom: 2.8rem;
+}
+
+.admin-card input {
+  width: 30rem;
+  border: none;
+  border-bottom: 3px solid #4460ef;
+  background-color: #f9fafe;
+  font-size: 2rem;
+}
+
+.admin-card input:focus {
+  outline: none;
+}
+
+.admin-card select {
+  width: 12rem;
+  height: 3.2rem;
+  color: #ffffff;
+  background-color: #4460ef;
+  border: none;
+  border-radius: 5px;
+  font-size: 2rem;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+}
+
+.admin-card select option {
+  width: 12rem;
+  height: 3.2rem;
+  background-color: white;
+  color: #212529;
+  outline: none;
+}
+
+.admin-card input {
+  width: 30rem;
+}
+
+.register__btn,
+.news_btn {
+  width: 16.5rem;
+  height: 4.3rem;
+  background: #4460ef;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: 27px;
+  text-align: center;
+  color: #ffffff;
+  border: none;
 }
 
 .heading {
@@ -79,7 +142,7 @@ button:hover {
 }
 
 .log h2 {
-  font-size: 2rem;
+  font-size: 2.3rem;
   font-weight: 500;
   margin-bottom: 1rem;
 }

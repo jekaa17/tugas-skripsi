@@ -10,8 +10,9 @@ function NewsForm(props) {
   const [dueDate, setDueDate] = useState(new Date());
 
   return (
-    <div className="news h-100">
-      <div className="news__container ">
+    <div className="admin-register admin-card">
+      <h1>Add New Assignment</h1>
+      <div class="admin-flex">
         <input
           type="text"
           className="Title__textBox  "
@@ -26,19 +27,6 @@ function NewsForm(props) {
           onChange={(e) => setValue(e.target.value)}
           placeholder="Assignment"
         />
-        <select
-          required
-          value={subjectId}
-          onChange={(e) => setSubjectId(e.target.value)}
-          className="subject__textBox  "
-          placeholder="Subject ID"
-        >
-          <option value="">Select option</option>
-          <option value="Bahasa Indonesia">Bahasa Indonesia</option>
-          <option value="Mat">Mat</option>
-          <option value="IPA">IPA</option>
-          <option value="IPS">IPS</option>
-        </select>
 
         <DatePicker
           selected={dueDate}
@@ -46,17 +34,30 @@ function NewsForm(props) {
           onChange={(date) => setDueDate(date)}
         />
 
-        <button
-          onClick={() => {
-            createNews(title, value, subjectId, dueDate, props.userId);
-            props.updateAssignment();
-          }}
-          type="submit"
-          className="news_btn "
+        <select
+          required
+          value={subjectId}
+          onChange={(e) => setSubjectId(e.target.value)}
+          className="subject__textBox  "
+          placeholder="Subject ID"
         >
-          Add Assignment
-        </button>
+          <option value="">Choose</option>
+          <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+          <option value="Mat">Mat</option>
+          <option value="IPA">IPA</option>
+          <option value="IPS">IPS</option>
+        </select>
       </div>
+      <button
+        onClick={() => {
+          createNews(title, value, subjectId, dueDate, props.userId);
+          props.updateAssignment();
+        }}
+        type="submit"
+        className="news_btn "
+      >
+        Add Assignment
+      </button>
     </div>
   );
 }

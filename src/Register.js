@@ -18,8 +18,9 @@ function Register() {
   };
 
   return (
-    <div className="register">
-      <div className="register__container">
+    <div className="admin-register admin-card">
+      <h1>Register New Student</h1>
+      <div class="admin-flex">
         <input
           type="text"
           className="register__textBox"
@@ -42,14 +43,13 @@ function Register() {
           placeholder="Password"
         />
         <select required value={subject} onChange={handleChange}>
-          <option value="">Select option</option>
           <option value="IPA">IPA</option>
           <option value="IPS">IPS</option>
         </select>
-        <button className="register__btn" onClick={register}>
-          Register
-        </button>
       </div>
+      <button className="register__btn" onClick={register}>
+        Register
+      </button>
     </div>
   );
 }

@@ -95,40 +95,44 @@ function TeacherAssignmentDetails() {
   if (!news) return <></>;
 
   return (
-    <div>
-      <div>
-        <h1>{news.Title} </h1>
-        <h2>{news.subjectId} </h2>
-        <p>{news.value} </p>
-      </div>
-      <form onSubmit={formHandler}>
-        <input type="file" className="input" />
-        <button type="submit">Upload</button>
-      </form>
-      <hr />
-      <h3> Uploaded {progress}% </h3>
-
-      {assignments.map((assg, index) => (
-        <div key={index}>
-          <a href={assg.downloadUrl} download>
-            Click to download
-          </a>
-          {/* <div>{assg.studentId}{' '}</div> */}
-          <div>{assg.name}</div>
-          <button onClick={() => setModal(true)}>add score</button>
-
-          {modal === true ? (
-            <Modal
-              onClose={() => setModal(false)}
-              addScore={addScore}
-              studentId={assg.studentId}
-              studentName={assg.name}
-            />
-          ) : (
-            ""
-          )}
+    <div class="page">
+      <div class="assgdetails-card">
+        <div class="detailbox">
+          <h1>{news.Title} </h1>
+          <h2>{news.subjectId} </h2>
+          <p>{news.value} </p>
         </div>
-      ))}
+
+        <form onSubmit={formHandler}>
+          <input type="file" className="input" />
+          <button type="submit">Upload</button>
+        </form>
+
+        <hr />
+        <h3> Uploaded {progress}% </h3>
+
+        {assignments.map((assg, index) => (
+          <div key={index}>
+            <a href={assg.downloadUrl} download>
+              Click to download
+            </a>
+            {/* <div>{assg.studentId}{' '}</div> */}
+            <div>{assg.name}</div>
+            <button onClick={() => setModal(true)}>add score</button>
+
+            {modal === true ? (
+              <Modal
+                onClose={() => setModal(false)}
+                addScore={addScore}
+                studentId={assg.studentId}
+                studentName={assg.name}
+              />
+            ) : (
+              ""
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

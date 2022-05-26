@@ -5,6 +5,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import { formatDate, checkPassDueDate } from "./utils/DateHelper";
+import "./AssgDetails.css";
 
 //a custom hook that builds on useLocation to parse
 function useQuery() {
@@ -85,28 +86,30 @@ function AssgDetails() {
   if (!news) return <></>;
 
   return (
-    <div>
-      <div>
-        <h1>{news.Title} </h1>
-        <h2>{news.subjectId} </h2>
-        <p>{news.value} </p>
-        <div>Due date:{formatDate(news.dueDate.toDate())}</div>
-        <a href={news.fileName} download>
-          Click to download
-        </a>
+    <div class="page">
+      <div class="assgdetails-card">
+        <div class="detailbox">
+          <h1 class="assgdetails-title">{news.subjectId} </h1>
+          <h2>{news.title} </h2>
+          <h3>{news.value} </h3>
+          <p>Due date: {formatDate(news.dueDate.toDate())}</p>
+          <a href={news.fileName} download>
+            Click to download
+          </a>
+        </div>
+        <form onSubmit={(e) => formHandler(e, news.dueDate)}>
+          <input type="file" className="input" />
+          <button
+            disabled={!checkPassDueDate(news.dueDate.toDate())}
+            type="submit"
+          >
+            Upload
+          </button>
+        </form>
+        <hr />
+        <h3> Uploaded {progress}% </h3>
+        <h1>{score}</h1>
       </div>
-      <form onSubmit={(e) => formHandler(e, news.dueDate)}>
-        <input type="file" className="input" />
-        <button
-          disabled={!checkPassDueDate(news.dueDate.toDate())}
-          type="submit"
-        >
-          Upload
-        </button>
-      </form>
-      <hr />
-      <h3> Uploaded {progress}% </h3>
-      <h1>{score}</h1>
     </div>
   );
 }
