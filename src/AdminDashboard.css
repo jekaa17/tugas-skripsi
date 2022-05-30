@@ -85,7 +85,21 @@ button:hover {
 }
 
 .admin-card input {
-  width: 30rem;
+  width: 30rem !important;
+}
+
+.react-datepicker-wrapper {
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  width: 30rem !important;
+}
+
+.box {
+  display: flex;
+  width: 100rem;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .register__btn,

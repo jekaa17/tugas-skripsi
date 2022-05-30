@@ -11,16 +11,6 @@ html {
   font-family: "Poppins", sans-serif;
 }
 
-.image-card {
-  max-width: 163px !important;
-}
-
-.subject-image {
-  max-width: 163px;
-  height: 163px;
-  object-fit: cover;
-}
-
 .app {
   width: 100vw;
   height: auto;
@@ -105,22 +95,28 @@ button:hover {
   margin-top: 0;
 }
 
-.row {
-  --bs-gutter-x: 1.5rem;
-  --bs-gutter-y: 0;
+.todocontainer {
+  /* display: flex; */
+}
+
+.subjects {
   display: flex;
   flex-wrap: wrap;
-  margin-top: calc(-1 * var(--bs-gutter-y));
-  margin-right: calc(-0.5 * var(--bs-gutter-x));
-  margin-left: calc(-0.5 * var(--bs-gutter-x));
-  width: 100rem;
+  width: 75.3rem;
   align-items: center;
   justify-content: space-between;
 }
 
-.board {
-  margin: auto;
-  width: 121.1rem;
+.board-container {
+  width: 121.3rem;
+  height: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.board-left {
+  width: 31.9rem;
   background: rgba(68, 96, 239, 0.03);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
@@ -129,59 +125,45 @@ button:hover {
   align-items: center;
   padding-top: 3rem;
   margin-bottom: 5rem;
+  overflow: hidden;
 }
 
-.head {
-  width: 101.7rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: -2rem;
-}
-
-.head h1 {
-  font-size: 3.8rem;
+.board-left h1 {
+  font-size: 2.5rem;
   font-weight: 500;
+  color: #4460ef;
 }
 
-.empty {
-  width: 12.5rem;
-}
-.assignment div {
-  width: 101.7rem;
+.assignments div {
+  width: 21.7rem;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 3.2rem;
+  margin-bottom: 1.8rem;
 }
 
-.assignment div span {
-  font-size: 1.8rem;
+.assignments div span {
+  font-size: 1.65rem;
   font-weight: 400;
-  padding-left: 0.5rem;
   width: 17rem;
   text-align: left;
-  height: 5rem;
+  height: 3rem;
   overflow: hidden;
+  color: #767b81;
 }
 
-.assignment div span:nth-child(2) {
-  padding-left: 5.43rem;
-  margin-left: -4.5rem;
-}
-
-.assignment div span:nth-child(3) {
-  padding-left: 6rem;
-  margin-left: -12rem;
+.assignments div span:nth-child(1) {
+  font-size: 2rem;
+  font-weight: 500;
+  width: 17rem;
+  text-align: left;
+  height: 3rem;
   overflow: hidden;
+  color: black;
 }
 
-.assignment div span:nth-child(4) {
-  padding-left: 7rem;
-  overflow: hidden;
-}
-
-.assignment a {
+.assignments a {
   width: 16.5rem;
   height: 4.3rem;
   background-color: #4460ef;
@@ -219,4 +201,37 @@ button:hover {
   width: 16.5rem;
   height: 4.3rem;
   color: #ffffff;
+}
+
+.board-right {
+  width: 87.5rem;
+  height: 56.6rem;
+  background: rgba(68, 96, 239, 0.03);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 3rem;
+  margin-bottom: 5rem;
+  overflow: hidden;
+}
+
+.image-card {
+  max-width: 163px !important;
+  text-align: center;
+}
+
+.subject-image {
+  max-width: 101px;
+  object-fit: cover;
+  color: #4460ef;
+}
+
+.board-right .card-body {
+  text-align: center;
+}
+
+.card-body h2 {
+  text-decoration: none;
 }

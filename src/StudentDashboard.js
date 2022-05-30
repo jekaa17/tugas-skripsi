@@ -53,10 +53,10 @@ function StudentDashboard() {
   };
 
   const getSubjectImage = (subject) => {
-    if (subject === "IPA") return "./images/IPA.jpeg";
+    if (subject === "IPA") return "./images/IPA.svg";
     if (subject === "IPS") return "./images/IPS.jpeg";
-    if (subject === "Bahasa Indonesia") return "./images/BI.jpeg";
-    if (subject === "Mat") return "./images/trigonometry.jpeg";
+    if (subject === "Bahasa Indonesia") return "./images/BI.svg";
+    if (subject === "Mat") return "./images/mate.svg";
   };
 
   useEffect(() => {
@@ -88,62 +88,56 @@ function StudentDashboard() {
         </div>
       </div>
       <div className="underline"></div>
-      <div>
-        <div class="row">
-          {subjects.map((subject) => (
-            <Link
-              className="col image-card"
-              to={`/subject-dashboard?subject=${subject}`}
-            >
-              <div>
-                <img
-                  src={getSubjectImage(subject)}
-                  className="card-img-top subject-image"
-                  alt="..."
-                />
-                <div class="card-body">
-                  <h2>{subject}</h2>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
+
+      <div class="board-container">
+        <div className="board-left">
+          <h1>To Do List</h1>
+          <div className="assignments">
+            {news
+              .filter((update) => checkPassDueDate(update?.dueDate.toDate()))
+              .map((update, index) => (
+                <div key={index}>
+                  <span>{update?.subjectId}</span>
+                  <span>{update?.title}</span>
+                  {/* <span>{update?.value}</span> */}
+                  {console.log(
+                    checkPassDueDate(update?.dueDate.toDate()),
+                    "DATE"
+                  )}
+                  {update?.dueDate && (
+                    <span>{formatDate(update?.dueDate.toDate())}</span>
+                  )}
+                  <button
+                    className="btn btn-link btn-outline-primary text-decoration-none"
+                    onClick={() => toAssgDetails(update)}
+                  >
+                    Read More
+                  </button>
                 </div>
-              </div>
-            </Link>
-          ))}
+              ))}
+          </div>
         </div>
-      </div>
-      <div className="board">
-        <div className="head">
-          <h1>Subject ID</h1>
-          <h1>Title</h1>
-          <h1>Description</h1>
-          <h1>Due Date</h1>
-          <div className="empty"></div>
-        </div>
-        <div className="assignment">
-          {news
-            .filter((update) => checkPassDueDate(update?.dueDate.toDate()))
-            .map((update, index) => (
-              <div key={index}>
-                <span>{update?.subjectId}</span>
-                <span>{update?.title}</span>
-                <span>{update?.value}</span>
-                {console.log(
-                  checkPassDueDate(update?.dueDate.toDate()),
-                  "DATE"
-                )}
-                {update?.dueDate && (
-                  <span>{formatDate(update?.dueDate.toDate())}</span>
-                )}
-                <button
-                  className="btn btn-link btn-outline-primary text-decoration-none"
-                  onClick={() => toAssgDetails(update)}
-                >
-                  Read More
-                </button>
-              </div>
+
+        <div class="board-right">
+          <div class="subjects">
+            {subjects.map((subject) => (
+              <Link
+                className="col image-card"
+                to={`/subject-dashboard?subject=${subject}`}
+              >
+                <div>
+                  <img
+                    src={getSubjectImage(subject)}
+                    className="card-img-top subject-image"
+                    alt="..."
+                  />
+                  <div class="card-body">
+                    <h2>{subject}</h2>
+                  </div>
+                </div>
+              </Link>
             ))}
+          </div>
         </div>
       </div>
     </div>

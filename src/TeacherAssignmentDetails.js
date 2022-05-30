@@ -97,6 +97,7 @@ function TeacherAssignmentDetails() {
   return (
     <div class="page">
       <div class="assgdetails-card">
+        
         <div class="detailbox">
           <h1>{news.Title} </h1>
           <h2>{news.subjectId} </h2>
