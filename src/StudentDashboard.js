@@ -54,7 +54,7 @@ function StudentDashboard() {
 
   const getSubjectImage = (subject) => {
     if (subject === "IPA") return "./images/IPA.svg";
-    if (subject === "IPS") return "./images/IPS.jpeg";
+    if (subject === "IPS") return "./images/IPS.svg";
     if (subject === "Bahasa Indonesia") return "./images/BI.svg";
     if (subject === "Mat") return "./images/mate.svg";
   };
@@ -119,6 +119,7 @@ function StudentDashboard() {
         </div>
 
         <div class="board-right">
+          <h1>Subjects</h1>
           <div class="subjects">
             {subjects.map((subject) => (
               <Link
@@ -126,11 +127,13 @@ function StudentDashboard() {
                 to={`/subject-dashboard?subject=${subject}`}
               >
                 <div>
-                  <img
-                    src={getSubjectImage(subject)}
-                    className="card-img-top subject-image"
-                    alt="..."
-                  />
+                  <div class="img-box">
+                    <img
+                      src={getSubjectImage(subject)}
+                      className="card-img-top subject-image"
+                      alt="..."
+                    />
+                  </div>
                   <div class="card-body">
                     <h2>{subject}</h2>
                   </div>

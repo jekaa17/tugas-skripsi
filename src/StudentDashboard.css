@@ -141,6 +141,7 @@ button:hover {
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 1.8rem;
+  margin-top: -3rem;
 }
 
 .assignments div span {
@@ -217,6 +218,21 @@ button:hover {
   overflow: hidden;
 }
 
+.board-right h1 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #4460ef;
+}
+
+.subjects {
+  margin-top: -2rem;
+}
+
+.img-box {
+  height: 12.5rem;
+  margin-bottom: 1rem;
+}
+
 .image-card {
   max-width: 163px !important;
   text-align: center;
@@ -228,10 +244,18 @@ button:hover {
   color: #4460ef;
 }
 
+.img-box img:nth-child(2) {
+  max-width: 101px;
+  height: 12rem;
+  object-fit: cover;
+  color: #4460ef;
+}
+
 .board-right .card-body {
   text-align: center;
 }
 
 .card-body h2 {
   text-decoration: none;
+  color: rgb(43, 42, 42);
 }
