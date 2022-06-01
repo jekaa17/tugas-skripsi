@@ -1,3 +1,7 @@
+BUG LGSG LOGIN ABIS REGISTER
+BUG SELECT OPTION REQUIRED
+BUG DOWNLOAD PDF,WORD, JPEG DLL OPEN FILE
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -40,21 +40,26 @@ const logInWithEmailAndPassword = async (email, password) => {
   }
 };
 
-const registerWithEmailAndPassword = async (name, email, password, subject) => {
+const registerWithEmailAndPassword = async (
+  name,
+  email,
+  password,
+  grade,
+  subject,
+  nis
+) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
-    // let subjects = ["Bahasa Indonesia","Mat"];
     const user = res.user;
-    // if(subject === "IPA")
-    //   subjects.push("IPA")
-    // if(subject==="IPS")
-    //   subjects.push("IPS")
 
     await addDoc(collection(db, "users"), {
       uid: user.uid,
       name,
+      grade,
+      nis,
       authProvider: "local",
       email,
+      major: subject,
       subjects:
         subject === "IPA"
           ? ["Bahasa Indonesia", "Mat", "IPA"]
@@ -66,12 +71,20 @@ const registerWithEmailAndPassword = async (name, email, password, subject) => {
   }
 };
 
-const createNews = async (title, value, subjectId, dueDate, teacherId) => {
+const createNews = async (
+  title,
+  value,
+  grade,
+  subjectId,
+  dueDate,
+  teacherId
+) => {
   try {
     const uid = uuidv4();
     await setDoc(doc(db, "news", uid), {
       title,
       value,
+      grade,
       subjectId,
       dueDate,
       uid,
@@ -94,11 +107,12 @@ const getNewsbyId = async (id) => {
   }
 };
 
-const getNews = async (subjectId) => {
+const getNews = async (subjectId, grade) => {
   try {
     const q = query(
       collection(db, "news"),
-      where("subjectId", "==", subjectId)
+      where("subjectId", "==", subjectId),
+      where("grade", "==", grade)
     );
     const querySnapshot = await getDocs(q);
     return querySnapshot;

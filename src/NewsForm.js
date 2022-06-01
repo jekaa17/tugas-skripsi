@@ -7,6 +7,7 @@ function NewsForm(props) {
   const [title, setTitle] = useState("");
   const [value, setValue] = useState("");
   const [subjectId, setSubjectId] = useState("");
+  const [grade, setGrade] = useState("");
   const [dueDate, setDueDate] = useState(new Date());
 
   return (
@@ -36,12 +37,25 @@ function NewsForm(props) {
 
         <select
           required
+          value={grade}
+          onChange={(e) => setGrade(e.target.value)}
+          className="grade__textBox"
+          placeholder="Grade"
+        >
+          <option value="">Choose Grade</option>
+          <option value="X">X</option>
+          <option value="XI">XI</option>
+          <option value="XII">XII</option>
+        </select>
+
+        <select
+          required
           value={subjectId}
           onChange={(e) => setSubjectId(e.target.value)}
           className="subject__textBox  "
           placeholder="Subject ID"
         >
-          <option value="">Choose</option>
+          <option value="">Choose Subject</option>
           <option value="Bahasa Indonesia">Bahasa Indonesia</option>
           <option value="Mat">Mat</option>
           <option value="IPA">IPA</option>
@@ -50,7 +64,7 @@ function NewsForm(props) {
       </div>
       <button
         onClick={() => {
-          createNews(title, value, subjectId, dueDate, props.userId);
+          createNews(title, value, grade, subjectId, dueDate, props.userId);
           props.updateAssignment();
         }}
         type="submit"

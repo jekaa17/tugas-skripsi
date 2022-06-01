@@ -5,16 +5,33 @@ function Register() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
+  const [grade, setGrade] = useState("");
+
   const register = () => {
     if (!name) {
       alert("Please enter name");
       return;
     }
-    registerWithEmailAndPassword(name, email, password, subject);
+    registerWithEmailAndPassword(
+      name,
+      email,
+      password,
+      grade,
+      subject,
+      randomNumber()
+    );
   };
 
-  const handleChange = (event) => {
+  const randomNumber = () => {
+    return parseInt(("" + Math.random()).substring(2, 8));
+  };
+
+  const handleSubjectChange = (event) => {
     setSubject(event.target.value);
+  };
+
+  const handleGradeChange = (event) => {
+    setGrade(event.target.value);
   };
 
   return (
@@ -42,7 +59,14 @@ function Register() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
-        <select required value={subject} onChange={handleChange}>
+        <select required value={grade} onChange={handleGradeChange}>
+          <option value="">Choose Grade</option>
+          <option value="X">X</option>
+          <option value="XI">XI</option>
+          <option value="XII">XII</option>
+        </select>
+        <select required value={subject} onChange={handleSubjectChange}>
+          <option value="">Choose Subject</option>
           <option value="IPA">IPA</option>
           <option value="IPS">IPS</option>
         </select>

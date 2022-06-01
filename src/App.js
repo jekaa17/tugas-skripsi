@@ -5,6 +5,9 @@ import "./App.css";
 import AssgDetails from "./AssgDetails";
 import TeacherAssignmentDetails from "./TeacherAssignmentDetails";
 import SubjectDashboard from "./SubjectDashboard";
+import GradeList from "./GradeList";
+import SubjectList from "./SubjectList";
+import StudentList from "./StudentList";
 
 function App() {
   return (
@@ -20,6 +23,17 @@ function App() {
             element={<TeacherAssignmentDetails />}
           />
           <Route path="/subject-dashboard" element={<SubjectDashboard />} />
+          <Route exact path="/student-list" element={<GradeList />}></Route>
+          <Route
+            exact
+            path="/student-list/:grade"
+            element={<SubjectList />}
+          ></Route>
+          <Route
+            exact
+            path="/student-list/:grade/:subject"
+            element={<StudentList />}
+          ></Route>
         </Routes>
       </Router>
     </div>

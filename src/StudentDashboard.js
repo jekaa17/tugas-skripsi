@@ -11,6 +11,7 @@ function StudentDashboard() {
   const [name, setName] = useState("");
   const [subjects, setSubjects] = useState([]);
   const [news, setNews] = useState([]);
+  const [grade, setGrade] = useState("");
   const navigate = useNavigate();
 
   const toAssgDetails = (update) => {
@@ -24,6 +25,7 @@ function StudentDashboard() {
       const data = doc.docs[0].data();
       setName(data.name);
       setSubjects(data.subjects);
+      setGrade(data.grade);
     } catch (err) {
       console.error(err);
       alert("An error occured while fetching user data");
@@ -32,12 +34,12 @@ function StudentDashboard() {
 
   const fetchNews = async () => {
     try {
-      const grabNews = async (subject) => {
-        const doc = await getNews(subject);
+      const grabNews = async (subject, grade) => {
+        const doc = await getNews(subject, grade);
         return doc.docs.map((doc) => doc.data());
       };
       const getData = async () => {
-        return Promise.all(subjects.map((subject) => grabNews(subject)));
+        return Promise.all(subjects.map((subject) => grabNews(subject, grade)));
       };
       getData().then((updates) => {
         updates.map((update) =>
@@ -67,8 +69,9 @@ function StudentDashboard() {
 
   useEffect(() => {
     if (!subjects) return;
+    if (!grade) return;
     fetchNews();
-  }, [subjects]);
+  }, [subjects, grade]);
 
   return (
     <div className="page">
