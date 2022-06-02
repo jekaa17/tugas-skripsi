@@ -65,7 +65,7 @@ button:hover {
 }
 
 .admin-card select {
-  width: 100%;
+  width: 19rem;
   height: 3.2rem;
   color: #ffffff;
   background-color: #4460ef;
@@ -89,14 +89,14 @@ button:hover {
 }
 
 .admin-card input {
-  width: 30rem !important;
+  width: 21rem !important;
 }
 
 .react-datepicker-wrapper {
   display: inline-block;
   padding: 0;
   border: 0;
-  width: 30rem !important;
+  width: 21rem !important;
 }
 
 .box {

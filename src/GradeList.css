@@ -1,3 +1,7 @@
+.row {
+  margin-top: 25rem !important;
+}
+
 .board-right .card-body {
   text-align: center;
 }
@@ -22,4 +26,5 @@
   background-color: #4460ef;
   max-width: 163px !important;
   text-align: center;
+  border-radius: 15px;
 }

@@ -13,7 +13,11 @@ function SubjectList() {
         >
           <div>
             <div class="img-box">
-              <img src="" className="card-img-top subject-image" alt="..." />
+              <img
+                src="./images/IPS.svg"
+                className="card-img-top subject-image"
+                alt="..."
+              />
             </div>
             <div class="card-body">
               <h2>{subject}</h2>

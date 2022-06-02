@@ -240,6 +240,7 @@ button:hover {
 
 .subject-image {
   max-width: 101px;
+  height: 125px;
   object-fit: cover;
   color: #4460ef;
 }
