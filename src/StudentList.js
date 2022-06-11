@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { query, collection, getDocs, where, setDoc } from "firebase/firestore";
+import {
+  query,
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  updateDoc,
+  where,
+  setDoc,
+} from "firebase/firestore";
 import { db } from "./firebase";
 import { useParams } from "react-router-dom";
+import Navbar from "./Navbar/Navbar";
 function StudentList() {
   const { grade, subject } = useParams();
   const [students, setStudents] = useState([]);
@@ -22,14 +32,23 @@ function StudentList() {
 
   const getStudentList = async () => {
     const doc = await getAllStudents(subject, grade);
-    setStudents(doc.docs.map((doc) => doc.data()));
+    // setStudents(doc.docs.map((doc) => doc.data()));
+    setStudents(doc.docs.map((doc) => ({ docId: doc.id, ...doc.data() })));
   };
   useEffect(() => {
     getStudentList();
   }, []);
 
+  const financeCheck = async (docId, boolean) => {
+    const docRef = doc(db, "users", `${docId}`);
+    const docSnap = await updateDoc(docRef, {
+      finance: boolean,
+    });
+  };
+
   return (
     <>
+      <Navbar role="admin" />
       <table class="table">
         <thead>
           <tr>
@@ -47,7 +66,12 @@ function StudentList() {
                 <td>{student.name}</td>
                 <td>{student.nis}</td>
                 <td>
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    onChange={(e) =>
+                      financeCheck(student.docId, e.target.checked)
+                    }
+                  />
                 </td>
               </tr>
             ))}

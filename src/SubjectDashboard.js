@@ -20,6 +20,7 @@ function SubjectDashboard() {
 
   const [user, loading, error] = useAuthState(auth);
   const [name, setName] = useState("");
+  const [grade, setGrade] = useState("");
   const [subjects, setSubjects] = useState([]);
   const [news, setNews] = useState([]);
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ function SubjectDashboard() {
       const doc = await getDocs(q);
       const data = doc.docs[0].data();
       setName(data.name);
+      setGrade(data.grade);
       setSubjects(data.subjects);
     } catch (err) {
       console.error(err);
@@ -44,7 +46,9 @@ function SubjectDashboard() {
   const fetchNews = async (subjectId) => {
     try {
       const grabNews = async (subjectId) => {
-        const doc = await getNews(subjectId);
+        console.log(user);
+        const doc = await getNews(subjectId, grade);
+        console.log(doc.docs);
         return doc.docs.map((doc) => doc.data());
       };
       const getData = async () => {
@@ -66,9 +70,9 @@ function SubjectDashboard() {
   }, [user, loading]);
 
   useEffect(() => {
-    if (!subjectId) return;
+    if (!subjectId && !grade) return;
     fetchNews(subjectId);
-  }, [subjectId]);
+  }, [grade, subjectId]);
 
   return (
     <div className="page">
@@ -102,7 +106,6 @@ function SubjectDashboard() {
               <span>{update?.subjectId}</span>
               <span>{update?.title}</span>
               <span>{update?.value}</span>
-              {console.log(checkPassDueDate(update?.dueDate.toDate()), "DATE")}
               {update?.dueDate && (
                 <span>{formatDate(update?.dueDate.toDate())}</span>
               )}

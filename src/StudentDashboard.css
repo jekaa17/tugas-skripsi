@@ -11,14 +11,6 @@ html {
   font-family: "Poppins", sans-serif;
 }
 
-.app {
-  width: 100vw;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 button:hover {
   background-color: #2747e8;
 }

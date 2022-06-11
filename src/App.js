@@ -7,7 +7,17 @@ import TeacherAssignmentDetails from "./TeacherAssignmentDetails";
 import SubjectDashboard from "./SubjectDashboard";
 import GradeList from "./GradeList";
 import SubjectList from "./SubjectList";
+import ExamTeacherDashboard from "./ExamTeacherDashboard";
 import StudentList from "./StudentList";
+import TeacherExamDetails from "./TeacherExamDetails";
+import ExamStudentDashboard from "./ExamStudentDashboard";
+import ExamStudentDetails from "./ExamStudentDetails";
+import ExamCard from "./ExamCard";
+
+<div className="container">
+  <Route exact path="/" element={<Login />} />
+  <Route path="/login" />
+</div>;
 
 function App() {
   return (
@@ -34,6 +44,27 @@ function App() {
             path="/student-list/:grade/:subject"
             element={<StudentList />}
           ></Route>
+          <Route
+            exact
+            path="/exam-teacher"
+            element={<ExamTeacherDashboard />}
+          ></Route>
+          <Route
+            exact
+            path="/exam-teacher/details"
+            element={<TeacherExamDetails />}
+          />
+          <Route
+            exact
+            path="/exam-student"
+            element={<ExamStudentDashboard />}
+          />
+          <Route
+            exact
+            path="/exam-student/details"
+            element={<ExamStudentDetails />}
+          />
+          <Route exact path="/exam-card" element={<ExamCard />} />
         </Routes>
       </Router>
     </div>

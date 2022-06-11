@@ -14,18 +14,18 @@ export const formatDate = (date) => {
 
 export const checkPassDueDate = (date) => {
   if (!date) return;
-  const day = date.getDate();
-  const month = date.getMonth();
-  const year = date.getYear();
+  const dueDay = date.getDate();
+  const dueMonth = date.getMonth();
+  const dueYear = date.getYear();
 
   const today = new Date();
   const todayYear = today.getYear();
   const todayMonth = today.getMonth();
   const todayDate = today.getDate();
 
-  if (year < todayYear) return false;
-  if (month < todayMonth) return false;
-  if (day < todayDate) return false;
+  if (dueDay < todayDate && dueMonth < todayMonth && dueYear < todayYear) {
+    return true;
+  }
 
-  return true;
+  return false;
 };

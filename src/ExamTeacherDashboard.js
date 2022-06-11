@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db, logout, getAssignmentByTeacherId } from "./firebase";
+import { auth, db, logout, getExamByTeacherId } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
-import Register from "./Register";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NewsForm from "./NewsForm";
 import { formatDate } from "./utils/DateHelper";
 import "./AdminDashboard.css";
 import Navbar from "./Navbar/Navbar";
 
-function AdminDashboard(props) {
-  const [user] = useAuthState(auth);
+function ExamTeacherDashboard(props) {
+  const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
-  const [news, setNews] = useState([]);
+  const [exams, setExams] = useState([]);
+  const navigate = useNavigate();
 
   const fetchUserName = async () => {
     try {
@@ -26,23 +26,29 @@ function AdminDashboard(props) {
     }
   };
 
-  const updateAssignment = async () => {
+  const updateExam = async () => {
     try {
-      setNews([]);
-      const querySnapshot = await getAssignmentByTeacherId(props.userId);
+      setExams([]);
+      const querySnapshot = await getExamByTeacherId(user?.uid);
       querySnapshot.forEach((doc) => {
-        setNews((news) => [...news, doc.data()]);
+        setExams((exams) => [...exams, doc.data()]);
       });
     } catch (err) {
       console.error(err);
-      alert("An error occured while updating assignment");
+      alert("An error occured while updating exam");
     }
   };
 
   useEffect(() => {
-    fetchUserName();
-    if (props.userId) updateAssignment();
-  }, [user]);
+    if (loading) return;
+    if (!user) return navigate("/");
+    if (user?.uid) {
+      fetchUserName();
+      updateExam();
+    }
+  }, [user?.uid]);
+
+  if (!user?.uid) return <></>;
 
   return (
     <>
@@ -54,7 +60,7 @@ function AdminDashboard(props) {
             <div>{user?.email}</div>
           </div>
           <div className="title">
-            <h1>Admin Dashboard</h1>
+            <h1>Exam Dashboard</h1>
           </div>
           <div className="log">
             <h2>Logged In As Admin</h2>
@@ -65,34 +71,27 @@ function AdminDashboard(props) {
         </div>
         <div className="underline"></div>
 
-        <Register />
-        <NewsForm
-          type="assignment"
-          userId={props.userId}
-          updateDocument={updateAssignment}
-        />
+        <NewsForm type="exam" userId={user?.uid} updateDocument={updateExam} />
         <div className="board">
           <div className="head">
+            <h1>Subject ID</h1>
             <h1>Title</h1>
             <h1>Description</h1>
-            <h1>Subject Id</h1>
-            <h1>Grade</h1>
             <h1>Due Date</h1>
             <div className="empty"></div>
           </div>
 
           <div className="assignment">
-            {news.map((update, index) => (
+            {exams.map((exam, index) => (
               <div key={index}>
-                <span>{update.title} </span>
-                <span>{update.value} </span>
-                <span>{update.subjectId}</span>
-                <span>{update.grade}</span>
-                {update?.dueDate && (
-                  <span>{formatDate(update?.dueDate.toDate())}</span>
+                <span>{exam.title} </span>
+                <span>{exam.value} </span>
+                <span>{exam.subjectId}</span>
+                {exam?.dueDate && (
+                  <span>{formatDate(exam?.dueDate.toDate())}</span>
                 )}
                 <Link
-                  to={`/teacher/assignment?id=${update.uid}`}
+                  to={`/exam-teacher/details?id=${exam.uid}`}
                   className="btn btn-outline-primary"
                 >
                   Readmore
@@ -105,4 +104,4 @@ function AdminDashboard(props) {
     </>
   );
 }
-export default AdminDashboard;
+export default ExamTeacherDashboard;

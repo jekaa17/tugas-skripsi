@@ -14,15 +14,15 @@ function useQuery() {
   return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
-function AssgDetails() {
+function ExamDetails() {
   const [progress, setProgress] = useState(0);
-  const [news, setNews] = useState();
+  const [exam, setExam] = useState();
   const [user] = useAuthState(auth);
   const [score, setScore] = useState();
   const { state } = useLocation();
   const { name } = state;
   let query = useQuery();
-  const assignmentId = query.get("id");
+  const examId = query.get("id");
   const formHandler = (e, dueDate) => {
     e.preventDefault();
     if (checkPassDueDate(dueDate.toDate())) return;
@@ -31,7 +31,7 @@ function AssgDetails() {
   };
 
   const uploadAnswertoDb = async (downloadURL) => {
-    await setDoc(doc(db, "news", assignmentId, "submission", user?.uid), {
+    await setDoc(doc(db, "exams", examId, "submission", user?.uid), {
       studentId: user?.uid,
       downloadUrl: downloadURL,
       name: name,
@@ -59,10 +59,10 @@ function AssgDetails() {
     );
   };
 
-  const fetchNews = async () => {
+  const fetchExam = async () => {
     try {
-      const doc = await getNewsbyId(assignmentId);
-      setNews(doc.docs[0].data());
+      const doc = await getExambyId(examId);
+      setExam(doc.docs[0].data());
     } catch (err) {
       console.error(err);
       alert("error while load news");
@@ -70,39 +70,37 @@ function AssgDetails() {
   };
 
   useEffect(async () => {
-    if (!assignmentId) return;
-    fetchNews();
+    if (!examId) return;
+    fetchExam();
   }, []);
 
   useEffect(async () => {
     if (user?.uid) {
       const docref = await getDoc(
-        doc(db, `news/${assignmentId}/submission/${user?.uid}`)
+        doc(db, `exam/${examId}/submission/${user?.uid}`)
       );
-      console.log(docref.data(), "docref");
-      setScore(docref.data().score);
+      setScore(docref.docs[0].data());
     }
   }, [user]);
 
-  if (!news) return <></>;
+  if (!exam) return <></>;
 
   return (
-    <div className="page">
-      <div className="assgdetails-card">
-        <div className="detailbox">
-          <h1 className="assgdetails-title">{news.subjectId} </h1>
-          <h2>{news.title} </h2>
-          <h3>{news.value} </h3>
-          <p>Due date: {formatDate(news.dueDate.toDate())}</p>
-          <a href={news.fileName} download>
+    <div class="page">
+      <div class="assgdetails-card">
+        <div class="detailbox">
+          <h1 class="assgdetails-title">{exam.subjectId} </h1>
+          <h2>{exam.title} </h2>
+          <h3>{exam.value} </h3>
+          <p>Due date: {formatDate(exam.dueDate.toDate())}</p>
+          <a href={exam.fileName} download>
             Click to download
           </a>
         </div>
-        <form onSubmit={(e) => formHandler(e, news.dueDate)}>
+        <form onSubmit={(e) => formHandler(e, exam.dueDate)}>
           <input type="file" className="input" />
-
           <button
-            disabled={checkPassDueDate(news.dueDate.toDate())}
+            disabled={!checkPassDueDate(exam.dueDate.toDate())}
             type="submit"
           >
             Upload
@@ -116,4 +114,4 @@ function AssgDetails() {
   );
 }
 
-export default AssgDetails;
+export default ExamDetails;

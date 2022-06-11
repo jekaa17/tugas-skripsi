@@ -96,6 +96,31 @@ const createNews = async (
   }
 };
 
+const createExam = async (
+  title,
+  value,
+  grade,
+  subjectId,
+  dueDate,
+  teacherId
+) => {
+  try {
+    const uid = uuidv4();
+    await setDoc(doc(db, "exams", uid), {
+      title,
+      value,
+      grade,
+      subjectId,
+      dueDate,
+      uid,
+      teacherId,
+    });
+  } catch (err) {
+    console.error(err);
+    alert("An error occured while uploading exams");
+  }
+};
+
 const getNewsbyId = async (id) => {
   try {
     const q = query(collection(db, "news"), where("uid", "==", id));
@@ -107,10 +132,37 @@ const getNewsbyId = async (id) => {
   }
 };
 
+const getExamsById = async (id) => {
+  try {
+    const q = query(collection(db, "exams"), where("uid", "==", id));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot;
+  } catch (err) {
+    console.error(err);
+    alert("An error occured while get exams");
+  }
+};
+
 const getNews = async (subjectId, grade) => {
   try {
+    console.log(subjectId, "subjectid", grade, "grade");
     const q = query(
       collection(db, "news"),
+      where("subjectId", "==", subjectId),
+      where("grade", "==", grade)
+    );
+    const querySnapshot = await getDocs(q);
+    return querySnapshot;
+  } catch (err) {
+    console.error(err);
+    alert("An error occured while get news");
+  }
+};
+
+const getExams = async (subjectId, grade) => {
+  try {
+    const q = query(
+      collection(db, "exams"),
       where("subjectId", "==", subjectId),
       where("grade", "==", grade)
     );
@@ -136,6 +188,20 @@ const getAssignmentByTeacherId = async (teacherId) => {
   }
 };
 
+const getExamByTeacherId = async (teacherId) => {
+  try {
+    const q = query(
+      collection(db, "exams"),
+      where("teacherId", "==", teacherId)
+    );
+    const querySnapshot = await getDocs(q);
+    return querySnapshot;
+  } catch (err) {
+    console.error(err);
+    alert("An error occured while get teacherId");
+  }
+};
+
 const logout = () => {
   signOut(auth);
 };
@@ -148,7 +214,11 @@ export {
   registerWithEmailAndPassword,
   logout,
   getNews,
+  getExams,
   getNewsbyId,
+  getExamsById,
   getAssignmentByTeacherId,
+  getExamByTeacherId,
   createNews,
+  createExam,
 };

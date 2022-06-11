@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-import { createNews } from "./firebase";
+import { createNews, createExam } from "./firebase";
 import "react-datepicker/dist/react-datepicker.css";
 
 function NewsForm(props) {
@@ -10,10 +10,13 @@ function NewsForm(props) {
   const [grade, setGrade] = useState("");
   const [dueDate, setDueDate] = useState(new Date());
 
+  function capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
   return (
     <div className="admin-register admin-card">
-      <h1>Add New Assignment</h1>
-      <div class="admin-flex">
+      <h1>Add New {capitalize(props.type)}</h1>
+      <div class="admin-flex f">
         <input
           type="text"
           className="Title__textBox  "
@@ -26,7 +29,7 @@ function NewsForm(props) {
           className="Value__textBox  "
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          placeholder="Assignment"
+          placeholder={capitalize(props.type)}
         />
 
         <DatePicker
@@ -64,13 +67,16 @@ function NewsForm(props) {
       </div>
       <button
         onClick={() => {
-          createNews(title, value, grade, subjectId, dueDate, props.userId);
-          props.updateAssignment();
+          if (props.type === "assignment")
+            createNews(title, value, grade, subjectId, dueDate, props.userId);
+          if (props.type === "exam")
+            createExam(title, value, grade, subjectId, dueDate, props.userId);
+          props.updateDocument();
         }}
         type="submit"
         className="news_btn "
       >
-        Add Assignment
+        Add {capitalize(props.type)}
       </button>
     </div>
   );

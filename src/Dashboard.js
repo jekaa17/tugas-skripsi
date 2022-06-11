@@ -8,7 +8,7 @@ import StudentDashboard from "./StudentDashboard";
 function Dashboard() {
   const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
-  const [role,setRole] = useState("");
+  const [role, setRole] = useState("");
   const navigate = useNavigate();
   const fetchUserName = async () => {
     try {
@@ -16,11 +16,11 @@ function Dashboard() {
       const doc = await getDocs(q);
       const data = doc.docs[0].data();
       const role = data.role;
-      if(role === 'admin'){
-        setRole('admin');
-      }else{
-        setRole('student');
-      };
+      if (role === "admin") {
+        setRole("admin");
+      } else {
+        setRole("student");
+      }
       setName(data.name);
     } catch (err) {
       console.error(err);
@@ -33,11 +33,9 @@ function Dashboard() {
     fetchUserName();
   }, [user]);
 
-    if(role==='student')
-         return<StudentDashboard/>;
-    if (role==='admin')
-        return<AdminDashboard userId={user?.uid}/>;
+  if (role === "student") return <StudentDashboard />;
+  if (role === "admin") return <AdminDashboard userId={user?.uid} />;
 
-    return <p> loading ... </p>;
+  return <p> loading ... </p>;
 }
 export default Dashboard;

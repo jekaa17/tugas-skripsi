@@ -2,21 +2,24 @@ import React, { useEffect, useState } from "react";
 import "./StudentDashboard.css";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, Link } from "react-router-dom";
-import { auth, db, logout, getNews } from "./firebase";
+import { auth, db, logout, getExams } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { formatDate, checkPassDueDate } from "./utils/DateHelper";
 import Navbar from "./Navbar/Navbar";
 
-function StudentDashboard() {
+function ExamStudentDashboard() {
   const [user, loading, error] = useAuthState(auth);
   const [name, setName] = useState("");
   const [subjects, setSubjects] = useState([]);
-  const [news, setNews] = useState([]);
+  const [exams, setExams] = useState([]);
   const [grade, setGrade] = useState("");
+  const [finance, setFinance] = useState();
   const navigate = useNavigate();
 
-  const toAssgDetails = (update) => {
-    navigate(`/assignment?id=${update.uid}`, { state: { name: name } });
+  const toExamDetails = (update) => {
+    navigate(`/exam-student/details?id=${update.uid}`, {
+      state: { name: name },
+    });
   };
 
   const fetchUserDetails = async () => {
@@ -27,25 +30,28 @@ function StudentDashboard() {
       setName(data.name);
       setSubjects(data.subjects);
       setGrade(data.grade);
+      setFinance(data.finance);
     } catch (err) {
       console.error(err);
       alert("An error occured while fetching user data");
     }
   };
 
-  const fetchNews = async () => {
+  const fetchExam = async () => {
     try {
-      const grabNews = async (subject, grade) => {
-        const doc = await getNews(subject, grade);
+      const grabExams = async (subject, grade) => {
+        const doc = await getExams(subject, grade);
         return doc.docs.map((doc) => doc.data());
       };
       const getData = async () => {
-        return Promise.all(subjects.map((subject) => grabNews(subject, grade)));
+        return Promise.all(
+          subjects.map((subject) => grabExams(subject, grade))
+        );
       };
       getData().then((updates) => {
         updates.map((update) =>
           update.map((singleUpdate) =>
-            setNews((news) => [...news, singleUpdate])
+            setExams((exams) => [...exams, singleUpdate])
           )
         );
       });
@@ -53,13 +59,6 @@ function StudentDashboard() {
       console.error(err);
       alert("error while load news");
     }
-  };
-
-  const getSubjectImage = (subject) => {
-    if (subject === "IPA") return "./images/IPA.svg";
-    if (subject === "IPS") return "./images/IPS.svg";
-    if (subject === "Bahasa Indonesia") return "./images/BI.svg";
-    if (subject === "Mat") return "./images/mate.svg";
   };
 
   useEffect(() => {
@@ -71,8 +70,16 @@ function StudentDashboard() {
   useEffect(() => {
     if (!subjects) return;
     if (!grade) return;
-    fetchNews();
+    fetchExam();
   }, [subjects, grade]);
+
+  if (!finance)
+    return (
+      <div>
+        There is outstanding invoice that has yet to pay. If it is mistaken,
+        contact to your student centre by calling or emailing them
+      </div>
+    );
 
   return (
     <>
@@ -95,11 +102,11 @@ function StudentDashboard() {
         </div>
         <div className="underline"></div>
 
-        <div class="board-container">
+        <div className="board-container">
           <div className="board-left">
-            <h1>To Do List</h1>
+            <h1>Exams</h1>
             <div className="assignments">
-              {news
+              {exams
                 .filter((update) => !checkPassDueDate(update?.dueDate.toDate()))
                 .map((update, index) => (
                   <div key={index}>
@@ -115,7 +122,7 @@ function StudentDashboard() {
                     )}
                     <button
                       className="btn btn-link btn-outline-primary text-decoration-none"
-                      onClick={() => toAssgDetails(update)}
+                      onClick={() => toExamDetails(update)}
                     >
                       Read More
                     </button>
@@ -123,34 +130,9 @@ function StudentDashboard() {
                 ))}
             </div>
           </div>
-
-          <div class="board-right">
-            <h1>Subjects</h1>
-            <div class="subjects">
-              {subjects.map((subject) => (
-                <Link
-                  className="col image-card"
-                  to={`/subject-dashboard?subject=${subject}`}
-                >
-                  <div>
-                    <div class="img-box">
-                      <img
-                        src={getSubjectImage(subject)}
-                        className="card-img-top subject-image"
-                        alt="..."
-                      />
-                    </div>
-                    <div class="card-body">
-                      <h2>{subject}</h2>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </>
   );
 }
-export default StudentDashboard;
+export default ExamStudentDashboard;
