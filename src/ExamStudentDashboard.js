@@ -75,9 +75,13 @@ function ExamStudentDashboard() {
 
   if (!finance)
     return (
-      <div>
-        There is outstanding invoice that has yet to pay. If it is mistaken,
-        contact to your student centre by calling or emailing them
+      <div class="finance-error-container">
+        <div class="finance-error">
+        <a href=""><img class="temp-img" src="./images/triangle-exclamation-solid.svg"alt="alert"/>
+        </a>
+        <p> There is outstanding invoice that has yet to pay. If it is mistaken,
+        contact to your student centre by calling or emailing them!</p>
+        </div>
       </div>
     );
 
