@@ -99,16 +99,16 @@ button:hover {
   justify-content: space-between;
 }
 
-.board-container {
+.board-container-exam {
   width: 121.3rem;
   height: auto;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
 }
 
-.board-left {
-  width: 31.9rem;
+.board-mid {
+  width: 93rem;
   background: rgba(68, 96, 239, 0.03);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
@@ -120,23 +120,25 @@ button:hover {
   overflow: hidden;
 }
 
-.board-left h1 {
+.board-mid h1 {
   font-size: 2.5rem;
   font-weight: 500;
   color: #4460ef;
+  text-decoration: underline;
+  margin-bottom: 5rem;
 }
 
-.assignments div {
-  width: 21.7rem;
+.exam div {
+  width:80rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 5.3rem;
   margin-top: -3rem;
 }
 
-.assignments div span {
+.exam div span {
   font-size: 1.65rem;
   font-weight: 400;
   width: 17rem;
@@ -146,7 +148,7 @@ button:hover {
   color: #767b81;
 }
 
-.assignments div span:nth-child(1) {
+.exam div span:nth-child(1) {
   font-size: 2rem;
   font-weight: 500;
   width: 17rem;
@@ -156,7 +158,7 @@ button:hover {
   color: black;
 }
 
-.assignments a {
+.exam a {
   width: 16.5rem;
   height: 4.3rem;
   background-color: #4460ef;

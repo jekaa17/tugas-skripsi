@@ -12,7 +12,7 @@ function GradeList() {
   return (
     <>
       <Navbar role="admin" />
-      <div className="row">
+      <div className="rows">
         {allGrades.map((grade) => (
           <Link className="col image-card" to={`/student-list/${grade.number}`}>
             <div>

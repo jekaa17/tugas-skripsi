@@ -1,5 +1,8 @@
-.row {
+.rows {
   margin-top: 25rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .board-right .card-body {
@@ -23,7 +26,7 @@
 }
 
 .image-card {
-  background-color: #4460ef;
+  /* background-color: #4460ef; */
   max-width: 163px !important;
   text-align: center;
   border-radius: 15px;

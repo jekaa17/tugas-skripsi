@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./StudentList.css";
 import {
   query,
   collection,
@@ -50,7 +51,7 @@ function StudentList() {
     <>
       <Navbar role="admin" />
       <table class="table">
-        <thead>
+        <thead >
           <tr>
             <th scope="col">No</th>
             <th scope="col">Name</th>

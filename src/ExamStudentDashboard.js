@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./StudentDashboard.css";
+import "./ExamStudentDashboard.css";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, Link } from "react-router-dom";
 import { auth, db, logout, getExams } from "./firebase";
@@ -102,10 +102,10 @@ function ExamStudentDashboard() {
         </div>
         <div className="underline"></div>
 
-        <div className="board-container">
-          <div className="board-left">
+        <div className="board-container-exam">
+          <div className="board-mid">
             <h1>Exams</h1>
-            <div className="assignments">
+            <div className="exam">
               {exams
                 .filter((update) => !checkPassDueDate(update?.dueDate.toDate()))
                 .map((update, index) => (

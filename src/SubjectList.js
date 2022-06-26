@@ -11,7 +11,7 @@ function SubjectList() {
   return (
     <>
       <Navbar role="admin" />
-      <div className="row">
+      <div className="rows">
         {allSubjects.map((subject) => (
           <Link
             className="col image-card"
