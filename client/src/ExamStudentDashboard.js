@@ -13,6 +13,7 @@ function ExamStudentDashboard() {
   const [subjects, setSubjects] = useState([]);
   const [exams, setExams] = useState([]);
   const [grade, setGrade] = useState("");
+  const [major, setMajor] = useState("");
   const [finance, setFinance] = useState();
   const navigate = useNavigate();
 
@@ -30,6 +31,7 @@ function ExamStudentDashboard() {
       setName(data.name);
       setSubjects(data.subjects);
       setGrade(data.grade);
+      setMajor(data.major);
       setFinance(data.finance);
     } catch (err) {
       console.error(err);
@@ -103,11 +105,16 @@ function ExamStudentDashboard() {
       <div className="page">
         <div className="heading">
           <div className="name">
+            <div class="image-logo">
+              <img src="./images/pscn.png" alt="teacher" />
+            </div>
             <div>{name}</div>
+            <div>{grade}</div>
+            <div>{major}</div>
             <div>{user?.email}</div>
           </div>
           <div className="title">
-            <h1>Student Dashboard</h1>
+            <h1>Exams</h1>
           </div>
           <div className="log">
             <h2>Logged In As Student</h2>
