@@ -80,7 +80,9 @@ const registerWithEmailAndPassword = async (
         subject === "IPA"
           ? ["Bahasa Indonesia", "Mat", "IPA"]
           : ["Bahasa Indonesia", "Mat", "IPS"],
-    });
+    })
+    .then(() => alert('new user created'))
+    
   } catch (err) {
     console.error(err);
     alert(err.message);
@@ -105,7 +107,8 @@ const createNews = async (
       dueDate,
       uid,
       teacherId,
-    });
+    })
+    .then(() => alert('new assignment created'))
   } catch (err) {
     console.error(err);
     alert("An error occured while uploading news");
@@ -130,7 +133,8 @@ const createExam = async (
       dueDate,
       uid,
       teacherId,
-    });
+    })
+    .then(() => alert('new exam created'))
   } catch (err) {
     console.error(err);
     alert("An error occured while uploading exams");

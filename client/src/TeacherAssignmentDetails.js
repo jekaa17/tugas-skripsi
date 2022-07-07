@@ -69,7 +69,8 @@ function TeacherAssignmentDetails() {
   const addScore = async (userId, score) => {
     await updateDoc(doc(db, "news", assignmentId, "submission", userId), {
       score: score,
-    });
+    })
+    .then(() => alert('score submitted'))
   };
 
   const fetchNews = async () => {
@@ -127,6 +128,8 @@ function TeacherAssignmentDetails() {
                 addScore={addScore}
                 studentId={assg.studentId}
                 studentName={assg.name}
+                subjectId={news.subjectId}
+                grade={news.grade}
               />
             ) : (
               ""

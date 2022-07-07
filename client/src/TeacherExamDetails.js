@@ -69,7 +69,8 @@ function TeacherExamDetails() {
   const addScore = async (userId, score) => {
     await updateDoc(doc(db, "exams", examId, "submission", userId), {
       score: score,
-    });
+    })
+    .then(() => alert('score submitted'))
   };
 
   const fetchExams = async () => {
