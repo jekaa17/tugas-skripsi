@@ -8,24 +8,6 @@ function Register() {
   const [subject, setSubject] = useState("");
   const [grade, setGrade] = useState("");
 
-  const createUserWithSecondAuthRef = () => {
-    var config = {
-      apiKey: "AIzaSyC0CniFAIZ4KPBFfSwbLuRI5h6u3lzKyk8",
-      authDomain: "skripsi-cf882.firebaseapp.com",
-      databaseURL: "https://skripsi-cf882.firebaseio.com",
-    };
-    var secondaryApp = firebase.initializeApp(config, "Secondary");
-
-    secondaryApp
-      .auth()
-      .createUserWithEmailAndPassword("jonyjony@candranaya.com", "test123")
-      .then(function (firebaseUser) {
-        console.log("User " + firebaseUser.uid + " created successfully!");
-        //I don't know if the next statement is necessary
-        secondaryApp.auth().signOut();
-      });
-  };
-
   const register = () => {
     if (!name) {
       alert("Please enter name");
@@ -93,7 +75,6 @@ function Register() {
       <button className="register__btn" onClick={register}>
         Register
       </button>
-      <button onClick={createUserWithSecondAuthRef}>Register 2nd</button>
     </div>
   );
 }

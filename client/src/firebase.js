@@ -49,11 +49,26 @@ const registerWithEmailAndPassword = async (
   nis
 ) => {
   try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    const user = res.user;
+    const data = { email: email, password: password };
+    const userUid = await fetch('https://us-central1-skripsi-cf882.cloudfunctions.net/api/createNewUser', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      return data.uid
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+
 
     await addDoc(collection(db, "users"), {
-      uid: user.uid,
+      uid: userUid,
       name,
       grade,
       nis,

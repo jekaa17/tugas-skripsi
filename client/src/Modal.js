@@ -6,7 +6,7 @@ function Modal(props) {
   let modalStyle = {
     // bug, modal background transparent is not working (modal need to be located at outer div)
     display: "block",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "rgba(0,0,0,0.8)"
   };
 
   let modalContentStyle = {

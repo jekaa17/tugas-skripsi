@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "skripsi-cf882",
+  "private_key_id": "4f362f98d84687e84d2c4a96bb4cc731ce53d8cb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCc+wCVrQc+husU\nqnuNiKnPb7YjzMxYFAI5xogPuqKG2xg7Nlsk39/DNGY7ltz8Ev6lXJCtSQHjCZVx\nogBXcQRRKrQ3W0ibqIzOTpOhQ7IegNwCvH/Nr0eByjRJc0rqYa+KLbMXehviIbfo\nv/Y1r1UuJ3+Sc9bvT86u0vFmvFtcx78GUkxJrizKrxCezeZ/4lPIks98iDwE5j5J\n/DieKmtME7vmsHFELw3y5ZUD4q1cIBtr6P9tFRjhTqtXGZXE0ajYppbE8nMY3SPX\nWL4TnNxIEsgkD0/67krlpNKPT/B25YrzZTXApofhE+iia+RjXk2c1x86uNDNhapo\nuxHFiuWXAgMBAAECggEAEYInSwpc4/rtTkVDeYI0GlhF0tFdOzekFeiQNVzmEq9u\nEPCbks3Laby26E+Hvy+pKi1cT490f+uKOP3OFvKafikKp5/tRbszVTFLYvGndKJ/\np2h5wqmZip7QXR7YTLLvfrRhJK2wXXTQS8vZPJydHgQ2xNFZuCBJF5OcbA53DC5o\nZIcWTXo6L84033OaFGqFejVTIRH9O3Np2CgCIKMZWJOonnJf+d0fBjS4r4mxd+fy\nMNoPbt91qmpEoUBUEYEdp/k659PsLTbQULMKusP5K7a+AQz6fJlED60L2KDlxUQN\nkwZ54yYOyU9k13WE9NZMR4W2DraegM3bKRVmbq2VjQKBgQDMU7V11Wx0ftC2fK5i\nXZvuxS34H9VHB8J0+fvMvVJT3cbYZ8QuVA0zLqfzwZPBXmeM4EcpDmtfqni4B+1U\nfVQehvjDuJ5z3Ovzf7URoJ7BIZ02//6Aqmh03Dpl78UJl/VcQboSI1ROnQe7Uq4B\n8XFUp2umOmi7hRRcx0gNd2SbWwKBgQDErgr5JF5PdEDz7k6+UuaX10obYVpbHiTP\nKK0TDhpxaoSIgKggiYL+md82QUMIBgHAVmxvWiqSSmX7B/kF1W6LfTvmKyv7sSoH\nriak8Ypx8q5QX419dpnzfjsbif61aauPgxqRTUu2MnotvKZ+ARui7mFrFQ7Ge+5j\niiOweaW/dQKBgQCn4wwRsvh3TBAAMbgzmMjcSuX3n2hmAak05oaP9utjf7G39KMM\nkgF6kZZswhy+4OvipBG0WWW+aFrik5jdOFFa9/oFD3gaqWayX7eOsVRgSldcbsFW\nRS6o/p95TKawuExhrpvN9Xt7UKmesFPLwvAk55+bKRkPI0zU4uWAMx7WSwKBgBOQ\nWGkV9AelQbzB7LVD28oo0SdOFMXRhsnQev7VPU4g0VQesBqkcxJOTgTAkyFeL5hp\nQFoHNwrcOa6xyVSKOXfImke37aUYp1yiNxfbKvFQuYQnLRTY0lGFMe34WQzEmRsq\naF8huDFEbiDUjh8kjxIy8h/LtW+K7liaahho0VLtAoGBAIZaBwjWuvftdw4A3A8a\n7KP9K2BM3dYfpFluUi5iDyZtxVBOJsCNCK8lh8KSHfWwvobyYfGAxS+e3an9/oYF\nHdKARar0fndpydA8ok6TZpR7N+D5Ur9cQN322dqcFDlt3CkSqV//Ql58rNsCdail\nMG4j5QxkNwm6PK9mp/0en4dO\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-52ini@skripsi-cf882.iam.gserviceaccount.com",
+  "client_id": "101746011495234063256",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-52ini%40skripsi-cf882.iam.gserviceaccount.com"
+}
