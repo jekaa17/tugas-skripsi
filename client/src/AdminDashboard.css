@@ -16,7 +16,6 @@ button:hover {
 }
 
 .page {
-  width: 1440px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -217,7 +216,7 @@ button:hover {
 }
 
 .head {
-  width: 101.7rem;
+  width: 105.7rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -243,7 +242,7 @@ button:hover {
 .assignment div span {
   font-size: 1.8rem;
   font-weight: 400;
-  padding-left: 0.5rem;
+  padding-left: 8.5rem;
   width: 17rem;
   text-align: left;
   height: 5rem;
@@ -251,13 +250,13 @@ button:hover {
 }
 
 .assignment div span:nth-child(2) {
-  padding-left: 5.43rem;
+  padding-left: 11.43rem;
   margin-left: -4.5rem;
 }
 
 .assignment div span:nth-child(3) {
   padding-left: 6rem;
-  margin-left: -12rem;
+  margin-left: 5rem;
   overflow: hidden;
 }
 

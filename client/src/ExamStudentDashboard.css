@@ -16,7 +16,7 @@ button:hover {
 }
 
 .page {
-  width: 1440px;
+  /* width: 1440px; */
   height: auto;
   display: flex;
   flex-direction: column;
@@ -129,7 +129,7 @@ button:hover {
 }
 
 .exam div {
-  width:80rem;
+  width: 80rem;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
