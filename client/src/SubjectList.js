@@ -18,14 +18,14 @@ function SubjectList() {
             to={`/student-list/${grade}/${subject.name}`}
           >
             <div>
-              <div class="img-box">
+              <div className="img-box">
                 <img
                   src={subject.img}
                   className="card-img-top subject-image"
                   alt="..."
                 />
               </div>
-              <div class="card-body">
+              <div className="card-body">
                 <h2>{subject.name}</h2>
               </div>
             </div>

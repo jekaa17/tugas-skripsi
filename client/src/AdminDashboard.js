@@ -8,6 +8,7 @@ import NewsForm from "./NewsForm";
 import { formatDate } from "./utils/DateHelper";
 import "./AdminDashboard.css";
 import Navbar from "./Navbar/Navbar";
+import StudentTimetable from "./StudentTimetable";
 
 function AdminDashboard(props) {
   const [user] = useAuthState(auth);
@@ -50,7 +51,7 @@ function AdminDashboard(props) {
       <div className="page">
         <div className="heading">
           <div className="name">
-            <div class="image-logo">
+            <div className="image-logo">
               <img src="./images/pscn.png" alt="teacher" />
             </div>
             <div>{name}</div>
@@ -74,6 +75,7 @@ function AdminDashboard(props) {
           userId={props.userId}
           updateDocument={updateAssignment}
         />
+        <StudentTimetable />
         <div className="board">
           <div className="head">
             <h1>Title</h1>

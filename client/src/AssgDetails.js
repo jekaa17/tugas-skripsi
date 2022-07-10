@@ -69,18 +69,22 @@ function AssgDetails() {
     }
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     if (!assignmentId) return;
     fetchNews();
   }, []);
 
-  useEffect(async () => {
-    if (user?.uid) {
+  useEffect(() => {
+    const asyncSetScore = async () => {
       const docref = await getDoc(
         doc(db, `news/${assignmentId}/submission/${user?.uid}`)
       );
       console.log(docref.data(), "docref");
       setScore(docref.data().score);
+    };
+
+    if (user?.uid) {
+      asyncSetScore();
     }
   }, [user]);
 

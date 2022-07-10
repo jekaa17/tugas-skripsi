@@ -69,27 +69,30 @@ function ExamDetails() {
     }
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     if (!examId) return;
     fetchExam();
   }, []);
 
-  useEffect(async () => {
-    if (user?.uid) {
+  useEffect(() => {
+    const asyncSetScore = async () => {
       const docref = await getDoc(
         doc(db, `exam/${examId}/submission/${user?.uid}`)
       );
       setScore(docref.docs[0].data());
+    };
+    if (user?.uid) {
+      asyncSetScore();
     }
   }, [user]);
 
   if (!exam) return <></>;
 
   return (
-    <div class="page">
-      <div class="assgdetails-card">
-        <div class="detailbox">
-          <h1 class="assgdetails-title">{exam.subjectId} </h1>
+    <div className="page">
+      <div className="assgdetails-card">
+        <div className="detailbox">
+          <h1 className="assgdetails-title">{exam.subjectId} </h1>
           <h2>{exam.title} </h2>
           <h3>{exam.value} </h3>
           <p>Due date: {formatDate(exam.dueDate.toDate())}</p>

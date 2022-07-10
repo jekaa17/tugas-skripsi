@@ -30,7 +30,7 @@ function Dashboard() {
   useEffect(() => {
     if (loading) return;
     if (!user) return navigate("/");
-    fetchUserName();
+    if (user) fetchUserName();
   }, [user]);
 
   if (role === "student") return <StudentDashboard />;

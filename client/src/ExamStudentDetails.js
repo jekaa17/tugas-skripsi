@@ -69,18 +69,22 @@ function ExamStudentDetails() {
     }
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     if (!examId) return;
     fetchExam();
   }, []);
 
-  useEffect(async () => {
-    if (user?.uid) {
+  useEffect(() => {
+    const asyncSetScore = async () => {
       const docref = await getDoc(
         doc(db, `exams/${examId}/submission/${user?.uid}`)
       );
       console.log(docref.data(), "docref");
       setScore(docref.data().score);
+    };
+
+    if (user?.uid) {
+      asyncSetScore();
     }
   }, [user]);
 

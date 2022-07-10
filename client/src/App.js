@@ -14,11 +14,6 @@ import ExamStudentDashboard from "./ExamStudentDashboard";
 import ExamStudentDetails from "./ExamStudentDetails";
 import ExamCard from "./ExamCard";
 
-<div className="container">
-  <Route exact path="/" element={<Login />} />
-  <Route path="/login" />
-</div>;
-
 function App() {
   return (
     <div className="app">

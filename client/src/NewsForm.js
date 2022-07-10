@@ -16,7 +16,7 @@ function NewsForm(props) {
   return (
     <div className="admin-register admin-card">
       <h1>Add New {capitalize(props.type)}</h1>
-      <div class="admin-flex f">
+      <div className="admin-flex f">
         <input
           type="text"
           className="Title__textBox  "

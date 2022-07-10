@@ -33,11 +33,11 @@ function ExamCard() {
     return (
       <>
         <Navbar />
-        <div class="finance-error-container">
-          <div class="finance-error">
+        <div className="finance-error-container">
+          <div className="finance-error">
             <a href="">
               <img
-                class="temp-img"
+                className="temp-img"
                 src="./images/triangle-exclamation-solid.svg"
                 alt="alert"
               />
@@ -53,9 +53,9 @@ function ExamCard() {
       </>
     );
   return (
-    <div class="exam_card_page">
-      <div class="exam_card">
-        <div class="exam_card_details">
+    <div className="exam_card_page">
+      <div className="exam_card">
+        <div className="exam_card_details">
           <h1>{studentDetails.name}</h1>
           <h2>{studentDetails.email}</h2>
           <h3>{studentDetails.nis}</h3>
@@ -69,10 +69,10 @@ function ExamCard() {
             ))}
           </div>
         </div>
-        <div class="exam_card_icon">
+        <div className="exam_card_icon">
           <a href="">
             <img
-              class="temp-img"
+              className="temp-img"
               src="./images/square-check-solid.svg"
               alt="alert"
             />

@@ -79,11 +79,11 @@ function ExamStudentDashboard() {
     return (
       <>
         <Navbar />
-        <div class="finance-error-container">
-          <div class="finance-error">
+        <div className="finance-error-container">
+          <div className="finance-error">
             <a href="">
               <img
-                class="temp-img"
+                className="temp-img"
                 src="./images/triangle-exclamation-solid.svg"
                 alt="alert"
               />
@@ -105,7 +105,7 @@ function ExamStudentDashboard() {
       <div className="page">
         <div className="heading">
           <div className="name">
-            <div class="image-logo">
+            <div className="image-logo">
               <img src="./images/pscn.png" alt="teacher" />
             </div>
             <div>{name}</div>

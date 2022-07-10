@@ -10,29 +10,31 @@ function Login() {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
   useEffect(() => {
-    if (loading) {
-      return <p>loading ...</p>;
-    }
     if (user) navigate("/dashboard");
-  }, [user, loading]);
+  }, [user]);
+
+  if (loading) {
+    return <p>loading ...</p>;
+  }
+
   return (
-    <div class="page">
-      <div class="sign-in">
+    <div className="page">
+      <div className="sign-in">
         <h1>Sign In</h1>
 
-        <div class="fill">
-          <div class="image">
+        <div className="fill">
+          <div className="image">
             <img src="./images/pscn.png" alt="teacher" />
           </div>
-          <div class="details">
-            <label for="email">Email</label>
+          <div className="details">
+            <label htmlFor="email">Email</label>
             <input
               type="text"
               className="login__textBox p-2 m-2"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <label for="password">Password</label>
+            <label htmlFor="password">Password</label>
             <input
               type="password"
               className="login__textBox p-2 m-2"

@@ -82,7 +82,7 @@ function StudentDashboard() {
       <div className="page">
         <div className="heading">
           <div className="name">
-            <div class="image-logo">
+            <div className="image-logo">
               <img src="./images/pscn.png" alt="teacher" />
             </div>
             <div>{name}</div>
@@ -102,7 +102,7 @@ function StudentDashboard() {
         </div>
         <div className="underline"></div>
 
-        <div class="board-container">
+        <div className="board-container">
           <div className="board-left">
             <h1>To Do List</h1>
             <div className="assignments">
@@ -131,23 +131,23 @@ function StudentDashboard() {
             </div>
           </div>
 
-          <div class="board-right">
+          <div className="board-right">
             <h1>Subjects</h1>
-            <div class="subjects">
+            <div className="subjects">
               {subjects.map((subject) => (
                 <Link
                   className="col image-card"
                   to={`/subject-dashboard?subject=${subject}`}
                 >
                   <div>
-                    <div class="img-box">
+                    <div className="img-box">
                       <img
                         src={getSubjectImage(subject)}
                         className="card-img-top subject-image"
                         alt="..."
                       />
                     </div>
-                    <div class="card-body">
+                    <div className="card-body">
                       <h2>{subject}</h2>
                     </div>
                   </div>

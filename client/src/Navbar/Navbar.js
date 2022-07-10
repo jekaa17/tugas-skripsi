@@ -16,9 +16,9 @@ import { SidebarTeacherData, SidebarStudentData } from "./SlidebarData";
 // STYLES
 import "./Navbar.css";
 
-function NavbarList({ item, index }) {
+function NavbarList({ item }) {
   return (
-    <li key={index} className={item.cName}>
+    <li className={item.cName}>
       <Link to={item.path}>
         {item.icon}
         <span>{item.title}</span>
@@ -51,13 +51,13 @@ export default function Navbar({ role }) {
             {role === "admin" ? (
               <>
                 {SidebarTeacherData.map((item, index) => {
-                  return <NavbarList item={item} index={index} />;
+                  return <NavbarList key={index} item={item} index={index} />;
                 })}
               </>
             ) : (
               <>
                 {SidebarStudentData.map((item, index) => {
-                  return <NavbarList item={item} index={index} />;
+                  return <NavbarList key={index} item={item} index={index} />;
                 })}
               </>
             )}

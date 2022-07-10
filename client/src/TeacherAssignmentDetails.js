@@ -69,8 +69,7 @@ function TeacherAssignmentDetails() {
   const addScore = async (userId, score) => {
     await updateDoc(doc(db, "news", assignmentId, "submission", userId), {
       score: score,
-    })
-    .then(() => alert('score submitted'))
+    }).then(() => alert("score submitted"));
   };
 
   const fetchNews = async () => {
@@ -82,23 +81,26 @@ function TeacherAssignmentDetails() {
       alert("error while load news");
     }
   };
-  useEffect(async () => {
+  useEffect(() => {
+    const asyncSetAssignments = async () => {
+      fetchNews();
+      const docsSnap = await getDocs(
+        collection(db, `news/${assignmentId}/submission`)
+      );
+      docsSnap.forEach((doc) => {
+        setAssignments((assignments) => [...assignments, doc.data()]);
+      });
+    };
     if (!assignmentId) return;
-    fetchNews();
-    const docsSnap = await getDocs(
-      collection(db, `news/${assignmentId}/submission`)
-    );
-    docsSnap.forEach((doc) => {
-      setAssignments((assignments) => [...assignments, doc.data()]);
-    });
+    asyncSetAssignments();
   }, []);
 
   if (!news) return <></>;
 
   return (
-    <div class="page">
-      <div class="assgdetails-card">
-        <div class="detailbox">
+    <div className="page">
+      <div className="assgdetails-card">
+        <div className="detailbox">
           <h1>{news.Title} </h1>
           <h2>{news.subjectId} </h2>
           <p>{news.value} </p>

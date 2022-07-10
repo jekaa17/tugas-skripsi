@@ -50,8 +50,8 @@ function StudentList() {
   return (
     <>
       <Navbar role="admin" />
-      <table class="table">
-        <thead >
+      <table className="table">
+        <thead>
           <tr>
             <th scope="col">No</th>
             <th scope="col">Name</th>

@@ -69,8 +69,7 @@ function TeacherExamDetails() {
   const addScore = async (userId, score) => {
     await updateDoc(doc(db, "exams", examId, "submission", userId), {
       score: score,
-    })
-    .then(() => alert('score submitted'))
+    }).then(() => alert("score submitted"));
   };
 
   const fetchExams = async () => {
@@ -82,23 +81,26 @@ function TeacherExamDetails() {
       alert("error while load news");
     }
   };
-  useEffect(async () => {
+  useEffect(() => {
+    const asyncSetStudentExams = async () => {
+      const docsSnap = await getDocs(
+        collection(db, `exams/${examId}/submission`)
+      );
+      docsSnap.forEach((doc) => {
+        setStudentExams((studentExams) => [...studentExams, doc.data()]);
+      });
+    };
     if (!examId) return;
     fetchExams();
-    const docsSnap = await getDocs(
-      collection(db, `exams/${examId}/submission`)
-    );
-    docsSnap.forEach((doc) => {
-      setStudentExams((studentExams) => [...studentExams, doc.data()]);
-    });
+    asyncSetStudentExams();
   }, []);
 
   if (!exam) return <></>;
 
   return (
-    <div class="page">
-      <div class="assgdetails-card">
-        <div class="detailbox">
+    <div className="page">
+      <div className="assgdetails-card">
+        <div className="detailbox">
           <h1>{exam.Title} </h1>
           <h2>{exam.subjectId} </h2>
           <p>{exam.value} </p>

@@ -38,7 +38,7 @@ function Register() {
   return (
     <div className="admin-register admin-card">
       <h1>Register New Student</h1>
-      <div class="admin-flex">
+      <div className="admin-flex">
         <input
           type="text"
           className="register__textBox"
