@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import {
   getAuth,
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
 import {
@@ -39,6 +39,20 @@ const logInWithEmailAndPassword = async (email, password) => {
     alert(err.message);
   }
 };
+
+const sendPasswordReset = (email) => {
+  sendPasswordResetEmail(auth, email)
+  .then(() => {
+    alert('Password reset email sent!');
+    // ..
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    alert(`${error.message}`)
+    // ..
+  });
+}
 
 const registerWithEmailAndPassword = async (
   name,
@@ -241,4 +255,5 @@ export {
   getExamByTeacherId,
   createNews,
   createExam,
+  sendPasswordReset
 };

@@ -2,6 +2,7 @@ Delete news/exams
 Sort news and exams (Admin Page)
 Reset password
 Sort timetable by day
+Student Timetable
 
 # Getting Started with Create React App
 
