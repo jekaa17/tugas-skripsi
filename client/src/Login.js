@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
+// import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import { auth, logInWithEmailAndPassword } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -9,9 +10,25 @@ function Login() {
   const [password, setPassword] = useState("");
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
+
+  // const auth = getAuth();
+
   useEffect(() => {
     if (user) navigate("/dashboard");
   }, [user]);
+
+  // const resetPassword = () => {
+  //   sendPasswordResetEmail(auth, email)
+  //   .then(() => {
+  //     // Password reset email sent!
+  //     // ..
+  //   })
+  //   .catch((error) => {
+  //     const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     // ..
+  //   });
+  // }
 
   if (loading) {
     return <p>loading ...</p>;
@@ -47,6 +64,9 @@ function Login() {
             >
               Login
             </button>
+            {/* <button onClick={resetPassword}>
+              Reset password
+            </button> */}
           </div>
         </div>
       </div>

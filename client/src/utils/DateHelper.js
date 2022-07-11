@@ -23,7 +23,7 @@ export const checkPassDueDate = (date) => {
   const todayMonth = today.getMonth();
   const todayDate = today.getDate();
 
-  if (dueDay < todayDate && dueMonth < todayMonth && dueYear < todayYear) {
+  if ((dueDay < todayDate) && (dueMonth < todayMonth) && (dueYear < todayYear)) {
     return true;
   }
 

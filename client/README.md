@@ -1,6 +1,7 @@
-BUG LGSG LOGIN ABIS REGISTER
-BUG SELECT OPTION REQUIRED
-BUG DOWNLOAD PDF,WORD, JPEG DLL OPEN FILE
+Delete news/exams
+Sort news and exams (Admin Page)
+Reset password
+Sort timetable by day
 
 # Getting Started with Create React App
 

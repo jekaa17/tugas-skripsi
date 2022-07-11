@@ -12,6 +12,8 @@ function StudentTimetable() {
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
 
+  const [idToDelete, setIdToDelete] = useState("")
+
   useEffect(() => {
 
     const asyncSetTimetable = async () => {
@@ -19,7 +21,6 @@ function StudentTimetable() {
         doc(db, `timetables/XII-IPA`)
       );
 
-      console.log(new Date("2018-02-23T11:30:00"), 'notformatted')
       const formattedDocRefData = docref.data().events;
       for (const item in formattedDocRefData) {
         formattedDocRefData[item].map((ev) => {
@@ -27,7 +28,6 @@ function StudentTimetable() {
           ev.endTime = ev.endTime.toDate();
         })
       }
-      console.log(formattedDocRefData, 'formattedDocRefData')
 
       setTimetable(formattedDocRefData)
     };
@@ -43,10 +43,6 @@ function StudentTimetable() {
 
 
   const submitEvent = () => {
-
-      console.log(startTime, 'startTime');
-      console.log(endTime, 'endTime');
-
       let newTimetable = timetable
       let newEventId = true;
       const newObj = {};
@@ -57,30 +53,32 @@ function StudentTimetable() {
       newObj.endTime = new Date(`2022-02-02T${endTime}:00`);
 
       if (!newTimetable[day]) {
-        newTimetable[day] = []
+        newTimetable[day] = [];
       }
 
       newTimetable[day] = newTimetable[day].map((selectedObj) => {
         if (selectedObj.id === id) {
           newEventId = false;
-          console.log('edit')
           return newObj;
         } else {
-          console.log('1')
-          return selectedObj
+          return selectedObj;
         }
       })
 
       if (newEventId === true) {
         newTimetable[day].push(newObj)
-        console.log('2')
       }
 
       setTimetableToDB();
-      
       setTimetable({...newTimetable})
+  }
 
-      console.log(newTimetable, 'newTimeTable');
+  const deleteEvent = () => {
+    for (const item in timetable) {
+      timetable[item] = timetable[item].filter((ev) => ev.id !== idToDelete)
+    }
+    setTimetableToDB();
+    setTimetable({...timetable})
   }
     
   
@@ -122,7 +120,17 @@ function StudentTimetable() {
             onChange={(newValue)=>setEndTime(newValue)}
             value={endTime}
           />
-          <button onClick={submitEvent}>submit</button>
+          <button onClick={submitEvent}>Add/Edit Event</button>
+      </div>
+      <div>
+        <input
+            type="text"
+            className="Title__textBox  "
+            value={idToDelete}
+            onChange={(e) => setIdToDelete(e.target.value)}
+            placeholder="Enter id to delete"
+          />
+          <button onClick={deleteEvent}>Delete Event</button>
       </div>
       <Timetable
       events={timetable}
