@@ -1,6 +1,7 @@
-Delete news/exams
-Sort news and exams (Admin Page)
-Reset password
+Delete news/exams (--Done--)
+Homescreen admin
+Sort news and exams (Admin Page) by timestamp
+Reset password (--Done--)
 Sort timetable by day
 Student Timetable
 

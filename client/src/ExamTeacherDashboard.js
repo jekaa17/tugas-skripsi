@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db, logout, getExamByTeacherId } from "./firebase";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import { query, collection, getDocs, where, doc, deleteDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import NewsForm from "./NewsForm";
 import { formatDate } from "./utils/DateHelper";
@@ -38,6 +38,16 @@ function ExamTeacherDashboard(props) {
       alert("An error occured while updating exam");
     }
   };
+
+  const deleteExam = async(uid) => {
+    try {
+      await deleteDoc(doc(db, "exams", uid));
+      await updateExam();
+      alert("exam deleted");
+    } catch (err) {
+      alert("An error occured while deleting exam")
+    }
+  }
 
   useEffect(() => {
     if (loading) return;
@@ -99,6 +109,7 @@ function ExamTeacherDashboard(props) {
                 >
                   Readmore
                 </Link>
+                <button onClick={() => deleteExam(exam.uid)}>Delete</button>
               </div>
             ))}
           </div>

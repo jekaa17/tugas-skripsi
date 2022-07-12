@@ -22,17 +22,17 @@ function StudentTimetable() {
       );
 
       const formattedDocRefData = docref.data().events;
-      for (const item in formattedDocRefData) {
-        formattedDocRefData[item].map((ev) => {
-          ev.startTime = ev.startTime.toDate();
-          ev.endTime = ev.endTime.toDate();
+        for (const item in formattedDocRefData) {
+          formattedDocRefData[item].map((ev) => {
+            ev.startTime = ev.startTime.toDate();
+            ev.endTime = ev.endTime.toDate();
         })
       }
 
       setTimetable(formattedDocRefData)
     };
     
-      asyncSetTimetable();
+    asyncSetTimetable();
   }, []);
 
   const setTimetableToDB = async () => {
@@ -71,6 +71,7 @@ function StudentTimetable() {
 
       setTimetableToDB();
       setTimetable({...newTimetable})
+      sortTimetableByDay();
   }
 
   const deleteEvent = () => {
@@ -80,10 +81,42 @@ function StudentTimetable() {
     setTimetableToDB();
     setTimetable({...timetable})
   }
+
+  const sortTimetableByDay = () => {
+    const sorter = {
+      "monday": 1,
+      "tuesday": 2,
+      "wednesday": 3,
+      "thursday": 4,
+      "friday": 5,
+      "saturday": 6,
+      "sunday": 7
+    };
+    
+    let tmp = [];
+    Object.keys(timetable).forEach(function(key) {
+      let value = timetable[key];
+      let index = sorter[key.toLowerCase()];
+      tmp[index] = {
+        key: key,
+        value: value
+      };
+    });
+    
+    let orderedData = {};
+    tmp.forEach(function(obj) {
+      orderedData[obj.key] = obj.value;
+    });
+
+    setTimetable(orderedData);
+    console.log(orderedData);
+  }
     
   
   if (Object.keys(timetable).length === 0)
     return<></>;
+
+  // sortTimetableByDay();
     
   return (
     <>

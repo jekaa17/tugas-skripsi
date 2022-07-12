@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db, logout, getAssignmentByTeacherId } from "./firebase";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import { doc, query, collection, getDocs, where, deleteDoc } from "firebase/firestore";
 import Register from "./Register";
 import { Link } from "react-router-dom";
 import NewsForm from "./NewsForm";
@@ -39,6 +39,16 @@ function AdminDashboard(props) {
       alert("An error occured while updating assignment");
     }
   };
+
+  const deleteAssignment = async(uid) => {
+    try {
+      await deleteDoc(doc(db, "news", uid));
+      await updateAssignment();
+      alert("Assignment deleted");
+    } catch (err) {
+      alert("An error occured while deleting assignment")
+    }
+  }
 
   useEffect(() => {
     fetchUserName();
@@ -102,6 +112,7 @@ function AdminDashboard(props) {
                 >
                   Readmore
                 </Link>
+                <button onClick={() => deleteAssignment(update.uid)}>Delete</button>
               </div>
             ))}
           </div>
