@@ -233,8 +233,8 @@ button:hover {
 }
 
 .subject-image {
-  max-width: 101px;
-  height: 125px;
+  max-width: 112px;
+  height: 111px;
   object-fit: cover;
   color: #4460ef;
 }
@@ -253,4 +253,11 @@ button:hover {
 .card-body h2 {
   text-decoration: none;
   color: rgb(43, 42, 42);
+}
+
+.subject-images {
+  max-width: 83px;
+  height: 111px;
+  object-fit: cover;
+  color: #4460ef;
 }

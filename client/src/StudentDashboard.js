@@ -145,7 +145,7 @@ function StudentDashboard() {
                     <div className="img-box">
                       <img
                         src={getSubjectImage(subject)}
-                        className="card-img-top subject-image"
+                        className="card-img-top subject-images"
                         alt="..."
                       />
                     </div>

@@ -243,7 +243,7 @@ button:hover {
 .assignment div span {
   font-size: 1.8rem;
   font-weight: 400;
-  padding-left: 8.5rem;
+  padding-left: 6.5rem;
   width: 17rem;
   text-align: left;
   height: 5rem;
@@ -252,17 +252,22 @@ button:hover {
 
 .assignment div span:nth-child(2) {
   padding-left: 11.43rem;
-  margin-left: -4.5rem;
+  margin-left: -7.5rem;
 }
 
 .assignment div span:nth-child(3) {
   padding-left: 6rem;
-  margin-left: 5rem;
+  margin-left: 11rem;
   overflow: hidden;
 }
 
 .assignment div span:nth-child(4) {
   padding-left: 7rem;
+  overflow: hidden;
+}
+
+.assignment div span:nth-child(5) {
+  padding-left: 3rem;
   overflow: hidden;
 }
 
@@ -323,4 +328,25 @@ button:hover {
   color: white;
   font-weight: 700;
   cursor: pointer;
+}
+
+.del-btn {
+  padding: 0.5rem;
+  background-color: #4460ef;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: white;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+}
+
+span {
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+}
+
+.styles-module_event__28gBZ {
+  background-color: #4460ef !important;
 }

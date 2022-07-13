@@ -1,15 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db, logout, getAssignmentByTeacherId } from "./firebase";
-import { doc, query, collection, getDocs, where, deleteDoc } from "firebase/firestore";
+import {
+  doc,
+  query,
+  collection,
+  getDocs,
+  where,
+  deleteDoc,
+} from "firebase/firestore";
 import Register from "./Register";
 import { Link } from "react-router-dom";
 import NewsForm from "./NewsForm";
 import { formatDate } from "./utils/DateHelper";
 import "./AdminDashboard.css";
 import Navbar from "./Navbar/Navbar";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  solid,
+  regular,
+  brands,
+} from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- import styles to be used
 
 function AdminDashboard(props) {
   const [user] = useAuthState(auth);
@@ -18,7 +29,6 @@ function AdminDashboard(props) {
   const [gradeTenToggle, setGradeTenToggle] = useState(true);
   const [gradeElevenToggle, setGradeElevenToggle] = useState(true);
   const [gradeTwelveToggle, setGradeTwelveToggle] = useState(true);
-
 
   const fetchUserName = async () => {
     try {
@@ -45,15 +55,15 @@ function AdminDashboard(props) {
     }
   };
 
-  const deleteAssignment = async(uid) => {
+  const deleteAssignment = async (uid) => {
     try {
       await deleteDoc(doc(db, "news", uid));
       await updateAssignment();
       alert("Assignment deleted");
     } catch (err) {
-      alert("An error occured while deleting assignment")
+      alert("An error occured while deleting assignment");
     }
-  }
+  };
 
   useEffect(() => {
     fetchUserName();
@@ -90,20 +100,23 @@ function AdminDashboard(props) {
           userId={props.userId}
           updateDocument={updateAssignment}
         />
-        <div className='assignment-container'>
+        <div className="assignment-container">
           <h2>Grade 10 assignments</h2>
-          <div className='toggle-button' onClick={() => setGradeTenToggle((value) => !value)}>
-            {gradeTenToggle ? 
-            <>
-              View
-              <FontAwesomeIcon icon={solid('chevron-down')} />
-            </>
-            :
-            <>
-              Hide
-              <FontAwesomeIcon icon={solid('chevron-up')} />
-            </>
-            }
+          <div
+            className="toggle-button"
+            onClick={() => setGradeTenToggle((value) => !value)}
+          >
+            {gradeTenToggle ? (
+              <>
+                View
+                <FontAwesomeIcon icon={solid("chevron-down")} />
+              </>
+            ) : (
+              <>
+                Hide
+                <FontAwesomeIcon icon={solid("chevron-up")} />
+              </>
+            )}
           </div>
           {!gradeTenToggle ? (
             <div className="board">
@@ -117,62 +130,10 @@ function AdminDashboard(props) {
               </div>
               <div className="assignment">
                 {news
-                  .filter((singleNews) => singleNews.grade === 'X')
-                  .sort(function(a,b) {return (b.dueDate).toDate() - (a.dueDate).toDate();})
-                  .map((update, index) => (
-                  <div key={index}>
-                    <span>{update.title} </span>
-                    <span>{update.value} </span>
-                    <span>{update.subjectId}</span>
-                    <span>{update.grade}</span>
-                    {update?.dueDate && (
-                      <span>{formatDate(update?.dueDate.toDate())}</span>
-                    )}
-                    <Link
-                      to={`/teacher/assignment?id=${update.uid}`}
-                      className="btn btn-outline-primary"
-                    >
-                      Readmore
-                    </Link>
-                    <button onClick={() => deleteAssignment(update.uid)}>Delete</button>
-                  </div>
-                ))}
-              </div>
-          </div>
-          ):
-          (<></>)
-          }
-        </div>
-        
-        <div className='assignment-container'> 
-          <h2>Grade 11 assignments</h2>
-          <div className='toggle-button' onClick={() => setGradeElevenToggle((value) => !value)}>
-            {gradeElevenToggle ?
-              <>
-                View
-                <FontAwesomeIcon icon={solid('chevron-down')} />
-              </>
-              :
-              <>
-                Hide
-                <FontAwesomeIcon icon={solid('chevron-up')} />
-              </>
-            }
-          </div>
-          {!gradeElevenToggle ? (
-            <div className="board">
-              <div className="head">
-                <h1>Title</h1>
-                <h1>Description</h1>
-                <h1>Subject Id</h1>
-                <h1>Grade</h1>
-                <h1>Due Date</h1>
-                <div className="empty"></div>
-              </div>
-              <div className="assignment">
-                {news
-                  .filter((singleNews) => singleNews.grade === 'XI')
-                  .sort(function(a,b) {return (b.dueDate).toDate() - (a.dueDate).toDate();})
+                  .filter((singleNews) => singleNews.grade === "X")
+                  .sort(function (a, b) {
+                    return b.dueDate.toDate() - a.dueDate.toDate();
+                  })
                   .map((update, index) => (
                     <div key={index}>
                       <span>{update.title} </span>
@@ -188,30 +149,102 @@ function AdminDashboard(props) {
                       >
                         Readmore
                       </Link>
-                      <button onClick={() => deleteAssignment(update.uid)}>Delete</button>
+                      <button
+                        className="del-btn"
+                        onClick={() => deleteAssignment(update.uid)}
+                      >
+                        Delete
+                      </button>
                     </div>
-                ))}
+                  ))}
               </div>
-          </div>
-          ):
-          (<></>)
-          }
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
 
-        <div className='assignment-container'>
-          <h2>Grade 12 assignments</h2>
-          <div className='toggle-button' onClick={() => setGradeTwelveToggle((value) => !value)}>
-            {gradeTwelveToggle ? 
+        <div className="assignment-container">
+          <h2>Grade 11 assignments</h2>
+          <div
+            className="toggle-button"
+            onClick={() => setGradeElevenToggle((value) => !value)}
+          >
+            {gradeElevenToggle ? (
               <>
                 View
-                <FontAwesomeIcon icon={solid('chevron-down')} />
+                <FontAwesomeIcon icon={solid("chevron-down")} />
               </>
-              :
+            ) : (
               <>
                 Hide
-                <FontAwesomeIcon icon={solid('chevron-up')} />
+                <FontAwesomeIcon icon={solid("chevron-up")} />
               </>
-            }
+            )}
+          </div>
+          {!gradeElevenToggle ? (
+            <div className="board">
+              <div className="head">
+                <h1>Title</h1>
+                <h1>Description</h1>
+                <h1>Subject Id</h1>
+                <h1>Grade</h1>
+                <h1>Due Date</h1>
+                <div className="empty"></div>
+              </div>
+              <div className="assignment">
+                {news
+                  .filter((singleNews) => singleNews.grade === "XI")
+                  .sort(function (a, b) {
+                    return b.dueDate.toDate() - a.dueDate.toDate();
+                  })
+                  .map((update, index) => (
+                    <div key={index}>
+                      <span>{update.title} </span>
+                      <span>{update.value} </span>
+                      <span>{update.subjectId}</span>
+                      <span>{update.grade}</span>
+                      {update?.dueDate && (
+                        <span>{formatDate(update?.dueDate.toDate())}</span>
+                      )}
+                      <Link
+                        to={`/teacher/assignment?id=${update.uid}`}
+                        className="btn btn-outline-primary"
+                      >
+                        Readmore
+                      </Link>
+                      <button
+                        className="del-btn"
+                        onClick={() => deleteAssignment(update.uid)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
+
+        <div className="assignment-container">
+          <h2>Grade 12 assignments</h2>
+          <div
+            className="toggle-button"
+            onClick={() => setGradeTwelveToggle((value) => !value)}
+          >
+            {gradeTwelveToggle ? (
+              <>
+                View
+                <FontAwesomeIcon icon={solid("chevron-down")} />
+              </>
+            ) : (
+              <>
+                Hide
+                <FontAwesomeIcon icon={solid("chevron-up")} />
+              </>
+            )}
           </div>
           {!gradeTwelveToggle ? (
             <div className="board">
@@ -223,33 +256,40 @@ function AdminDashboard(props) {
                 <h1>Due Date</h1>
                 <div className="empty"></div>
               </div>
-              <div className="assignment"> 
+              <div className="assignment">
                 {news
-                  .filter((singleNews) => singleNews.grade === 'XII')
-                  .sort(function(a,b) {return (b.dueDate).toDate() - (a.dueDate).toDate();})
+                  .filter((singleNews) => singleNews.grade === "XII")
+                  .sort(function (a, b) {
+                    return b.dueDate.toDate() - a.dueDate.toDate();
+                  })
                   .map((update, index) => (
-                  <div key={index}>
-                    <span>{update.title} </span>
-                    <span>{update.value} </span>
-                    <span>{update.subjectId}</span>
-                    <span>{update.grade}</span>
-                    {update?.dueDate && (
-                      <span>{formatDate(update?.dueDate.toDate())}</span>
-                    )}
-                    <Link
-                      to={`/teacher/assignment?id=${update.uid}`}
-                      className="btn btn-outline-primary"
-                    >
-                      Readmore
-                    </Link>
-                    <button onClick={() => deleteAssignment(update.uid)}>Delete</button>
-                  </div>
-                ))}
+                    <div key={index}>
+                      <span>{update.title} </span>
+                      <span>{update.value} </span>
+                      <span>{update.subjectId}</span>
+                      <span>{update.grade}</span>
+                      {update?.dueDate && (
+                        <span>{formatDate(update?.dueDate.toDate())}</span>
+                      )}
+                      <Link
+                        to={`/teacher/assignment?id=${update.uid}`}
+                        className="btn btn-outline-primary"
+                      >
+                        Readmore
+                      </Link>
+                      <button
+                        className="del-btn"
+                        onClick={() => deleteAssignment(update.uid)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ))}
               </div>
-          </div>
-          ):
-          (<></>)
-          }
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </>
