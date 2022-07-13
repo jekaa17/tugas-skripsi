@@ -93,11 +93,16 @@ function AdminDashboard(props) {
         <div className='assignment-container'>
           <h2>Grade 10 assignments</h2>
           <div className='toggle-button' onClick={() => setGradeTenToggle((value) => !value)}>
-            View
             {gradeTenToggle ? 
+            <>
+              View
               <FontAwesomeIcon icon={solid('chevron-down')} />
-              :
+            </>
+            :
+            <>
+              Hide
               <FontAwesomeIcon icon={solid('chevron-up')} />
+            </>
             }
           </div>
           {!gradeTenToggle ? (
@@ -142,11 +147,16 @@ function AdminDashboard(props) {
         <div className='assignment-container'> 
           <h2>Grade 11 assignments</h2>
           <div className='toggle-button' onClick={() => setGradeElevenToggle((value) => !value)}>
-            View
-            {gradeElevenToggle ? 
-              <FontAwesomeIcon icon={solid('chevron-down')} />
+            {gradeElevenToggle ?
+              <>
+                View
+                <FontAwesomeIcon icon={solid('chevron-down')} />
+              </>
               :
-              <FontAwesomeIcon icon={solid('chevron-up')} />
+              <>
+                Hide
+                <FontAwesomeIcon icon={solid('chevron-up')} />
+              </>
             }
           </div>
           {!gradeElevenToggle ? (
@@ -191,11 +201,16 @@ function AdminDashboard(props) {
         <div className='assignment-container'>
           <h2>Grade 12 assignments</h2>
           <div className='toggle-button' onClick={() => setGradeTwelveToggle((value) => !value)}>
-            View
             {gradeTwelveToggle ? 
-              <FontAwesomeIcon icon={solid('chevron-down')} />
+              <>
+                View
+                <FontAwesomeIcon icon={solid('chevron-down')} />
+              </>
               :
-              <FontAwesomeIcon icon={solid('chevron-up')} />
+              <>
+                Hide
+                <FontAwesomeIcon icon={solid('chevron-up')} />
+              </>
             }
           </div>
           {!gradeTwelveToggle ? (
