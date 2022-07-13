@@ -16,9 +16,6 @@ function AdminDashboard(props) {
   const [user] = useAuthState(auth);
   const [name, setName] = useState("");
   const [news, setNews] = useState([]);
-  const [gradeTenAssignments, setGradeTenAssignments] = useState([]);
-  const [gradeElevenAssignments, setGradeElevenAssignments] = useState([]);
-  const [gradeTwelveAssignments, setGradeTwelveAssignments] = useState([]);
   const [gradeTenToggle, setGradeTenToggle] = useState(true);
   const [gradeElevenToggle, setGradeElevenToggle] = useState(true);
   const [gradeTwelveToggle, setGradeTwelveToggle] = useState(true);
@@ -40,18 +37,9 @@ function AdminDashboard(props) {
     try {
       setNews([]);
       const querySnapshot = await getAssignmentByTeacherId(props.userId);
-      await querySnapshot.forEach((doc) => {
+      querySnapshot.forEach((doc) => {
         setNews((news) => [...news, doc.data()]);
       });
-      const gradeTenNews = news.filter((singleNews) => singleNews.grade === 'X');
-      const gradeElevenNews = news.filter((singleNews) => singleNews.grade === 'XI');
-      const gradeTwelveNews = news.filter((singleNews) => singleNews.grade === 'XII')
-      setGradeTenAssignments(gradeTenNews);
-      setGradeElevenAssignments(gradeElevenNews);
-      setGradeTwelveAssignments(gradeTwelveNews);
-      console.log(gradeTenAssignments);
-      console.log(gradeElevenAssignments);
-      console.log(gradeTwelveAssignments);
     } catch (err) {
       console.error(err);
       alert("An error occured while updating assignment");
@@ -125,7 +113,9 @@ function AdminDashboard(props) {
                 <div className="empty"></div>
               </div>
               <div className="assignment">
-                {gradeTenAssignments.map((update, index) => (
+                {news
+                  .filter((singleNews) => singleNews.grade === 'X')
+                  .map((update, index) => (
                   <div key={index}>
                     <span>{update.title} </span>
                     <span>{update.value} </span>
@@ -171,23 +161,25 @@ function AdminDashboard(props) {
                 <div className="empty"></div>
               </div>
               <div className="assignment">
-                {gradeElevenAssignments.map((update, index) => (
-                  <div key={index}>
-                    <span>{update.title} </span>
-                    <span>{update.value} </span>
-                    <span>{update.subjectId}</span>
-                    <span>{update.grade}</span>
-                    {update?.dueDate && (
-                      <span>{formatDate(update?.dueDate.toDate())}</span>
-                    )}
-                    <Link
-                      to={`/teacher/assignment?id=${update.uid}`}
-                      className="btn btn-outline-primary"
-                    >
-                      Readmore
-                    </Link>
-                    <button onClick={() => deleteAssignment(update.uid)}>Delete</button>
-                  </div>
+                {news
+                  .filter((singleNews) => singleNews.grade === 'XI')
+                  .map((update, index) => (
+                    <div key={index}>
+                      <span>{update.title} </span>
+                      <span>{update.value} </span>
+                      <span>{update.subjectId}</span>
+                      <span>{update.grade}</span>
+                      {update?.dueDate && (
+                        <span>{formatDate(update?.dueDate.toDate())}</span>
+                      )}
+                      <Link
+                        to={`/teacher/assignment?id=${update.uid}`}
+                        className="btn btn-outline-primary"
+                      >
+                        Readmore
+                      </Link>
+                      <button onClick={() => deleteAssignment(update.uid)}>Delete</button>
+                    </div>
                 ))}
               </div>
           </div>
@@ -217,7 +209,9 @@ function AdminDashboard(props) {
                 <div className="empty"></div>
               </div>
               <div className="assignment">
-                {gradeTwelveAssignments.map((update, index) => (
+                {news
+                  .filter((singleNews) => singleNews.grade === 'XII')
+                  .map((update, index) => (
                   <div key={index}>
                     <span>{update.title} </span>
                     <span>{update.value} </span>
