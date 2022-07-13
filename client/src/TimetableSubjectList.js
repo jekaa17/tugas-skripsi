@@ -14,6 +14,7 @@ function TimetableSubjectList() {
       <div className="rows">
         {allSubjects.map((subject) => (
           <Link
+            key={subject.name}
             className="col image-card"
             to={`/timetable/${grade}/${subject.name}`}
           >

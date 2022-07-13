@@ -14,7 +14,7 @@ function TimetableGradeList() {
       <Navbar role="admin" />
       <div className="rows">
         {allGrades.map((grade) => (
-          <Link className="col image-card" to={`/timetable/${grade.number}`}>
+          <Link key={grade.number} className="col image-card" to={`/timetable/${grade.number}`}>
             <div>
               <img
                 src={grade.img}
