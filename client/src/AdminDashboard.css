@@ -304,3 +304,18 @@ button:hover {
   height: 4.3rem;
   color: #ffffff;
 }
+
+.toggle-button {
+  width: 80vw;
+  height: 40px;
+  background: #4460ef;
+  border-radius: 5px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}

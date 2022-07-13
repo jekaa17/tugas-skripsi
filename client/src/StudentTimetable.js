@@ -71,7 +71,6 @@ function StudentTimetable() {
 
       setTimetableToDB();
       setTimetable({...newTimetable})
-      sortTimetableByDay();
   }
 
   const deleteEvent = () => {
@@ -82,7 +81,7 @@ function StudentTimetable() {
     setTimetable({...timetable})
   }
 
-  const sortTimetableByDay = () => {
+  const sortedTimetable = () => {
     const sorter = {
       "monday": 1,
       "tuesday": 2,
@@ -108,15 +107,12 @@ function StudentTimetable() {
       orderedData[obj.key] = obj.value;
     });
 
-    setTimetable(orderedData);
-    console.log(orderedData);
+    return orderedData;
   }
     
   
   if (Object.keys(timetable).length === 0)
     return<></>;
-
-  // sortTimetableByDay();
     
   return (
     <>
@@ -166,7 +162,7 @@ function StudentTimetable() {
           <button onClick={deleteEvent}>Delete Event</button>
       </div>
       <Timetable
-      events={timetable}
+        events={sortedTimetable()}
         style={{ height: "500px", width: "80%" }}
       />
     </>

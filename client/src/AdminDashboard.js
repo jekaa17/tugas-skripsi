@@ -9,11 +9,20 @@ import { formatDate } from "./utils/DateHelper";
 import "./AdminDashboard.css";
 import Navbar from "./Navbar/Navbar";
 import StudentTimetable from "./StudentTimetable";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
 
 function AdminDashboard(props) {
   const [user] = useAuthState(auth);
   const [name, setName] = useState("");
   const [news, setNews] = useState([]);
+  const [gradeTenAssignments, setGradeTenAssignments] = useState([]);
+  const [gradeElevenAssignments, setGradeElevenAssignments] = useState([]);
+  const [gradeTwelveAssignments, setGradeTwelveAssignments] = useState([]);
+  const [gradeTenToggle, setGradeTenToggle] = useState(true);
+  const [gradeElevenToggle, setGradeElevenToggle] = useState(true);
+  const [gradeTwelveToggle, setGradeTwelveToggle] = useState(true);
+
 
   const fetchUserName = async () => {
     try {
@@ -31,9 +40,18 @@ function AdminDashboard(props) {
     try {
       setNews([]);
       const querySnapshot = await getAssignmentByTeacherId(props.userId);
-      querySnapshot.forEach((doc) => {
+      await querySnapshot.forEach((doc) => {
         setNews((news) => [...news, doc.data()]);
       });
+      const gradeTenNews = news.filter((singleNews) => singleNews.grade === 'X');
+      const gradeElevenNews = news.filter((singleNews) => singleNews.grade === 'XI');
+      const gradeTwelveNews = news.filter((singleNews) => singleNews.grade === 'XII')
+      setGradeTenAssignments(gradeTenNews);
+      setGradeElevenAssignments(gradeElevenNews);
+      setGradeTwelveAssignments(gradeTwelveNews);
+      console.log(gradeTenAssignments);
+      console.log(gradeElevenAssignments);
+      console.log(gradeTwelveAssignments);
     } catch (err) {
       console.error(err);
       alert("An error occured while updating assignment");
@@ -86,7 +104,144 @@ function AdminDashboard(props) {
           updateDocument={updateAssignment}
         />
         <StudentTimetable />
-        <div className="board">
+        <div>
+          <h2>Grade 10 assignments</h2>
+          <div className='toggle-button' onClick={() => setGradeTenToggle((value) => !value)}>
+            View
+            {gradeTenToggle ? 
+              <FontAwesomeIcon icon={solid('chevron-down')} />
+              :
+              <FontAwesomeIcon icon={solid('chevron-up')} />
+            }
+          </div>
+          {!gradeTenToggle ? (
+            <div className="board">
+              <div className="head">
+                <h1>Title</h1>
+                <h1>Description</h1>
+                <h1>Subject Id</h1>
+                <h1>Grade</h1>
+                <h1>Due Date</h1>
+                <div className="empty"></div>
+              </div>
+              <div className="assignment">
+                {gradeTenAssignments.map((update, index) => (
+                  <div key={index}>
+                    <span>{update.title} </span>
+                    <span>{update.value} </span>
+                    <span>{update.subjectId}</span>
+                    <span>{update.grade}</span>
+                    {update?.dueDate && (
+                      <span>{formatDate(update?.dueDate.toDate())}</span>
+                    )}
+                    <Link
+                      to={`/teacher/assignment?id=${update.uid}`}
+                      className="btn btn-outline-primary"
+                    >
+                      Readmore
+                    </Link>
+                    <button onClick={() => deleteAssignment(update.uid)}>Delete</button>
+                  </div>
+                ))}
+              </div>
+          </div>
+          ):
+          (<></>)
+          }
+        </div>
+        
+        <div> 
+          <h2>Grade 11 assignments</h2>
+          <div className='toggle-button' onClick={() => setGradeElevenToggle((value) => !value)}>
+            View
+            {gradeElevenToggle ? 
+              <FontAwesomeIcon icon={solid('chevron-down')} />
+              :
+              <FontAwesomeIcon icon={solid('chevron-up')} />
+            }
+          </div>
+          {!gradeElevenToggle ? (
+            <div className="board">
+              <div className="head">
+                <h1>Title</h1>
+                <h1>Description</h1>
+                <h1>Subject Id</h1>
+                <h1>Grade</h1>
+                <h1>Due Date</h1>
+                <div className="empty"></div>
+              </div>
+              <div className="assignment">
+                {gradeElevenAssignments.map((update, index) => (
+                  <div key={index}>
+                    <span>{update.title} </span>
+                    <span>{update.value} </span>
+                    <span>{update.subjectId}</span>
+                    <span>{update.grade}</span>
+                    {update?.dueDate && (
+                      <span>{formatDate(update?.dueDate.toDate())}</span>
+                    )}
+                    <Link
+                      to={`/teacher/assignment?id=${update.uid}`}
+                      className="btn btn-outline-primary"
+                    >
+                      Readmore
+                    </Link>
+                    <button onClick={() => deleteAssignment(update.uid)}>Delete</button>
+                  </div>
+                ))}
+              </div>
+          </div>
+          ):
+          (<></>)
+          }
+        </div>
+
+        <div>
+          <h2>Grade 12 assignments</h2>
+          <div className='toggle-button' onClick={() => setGradeTwelveToggle((value) => !value)}>
+            View
+            {gradeTwelveToggle ? 
+              <FontAwesomeIcon icon={solid('chevron-down')} />
+              :
+              <FontAwesomeIcon icon={solid('chevron-up')} />
+            }
+          </div>
+          {!gradeTwelveToggle ? (
+            <div className="board">
+              <div className="head">
+                <h1>Title</h1>
+                <h1>Description</h1>
+                <h1>Subject Id</h1>
+                <h1>Grade</h1>
+                <h1>Due Date</h1>
+                <div className="empty"></div>
+              </div>
+              <div className="assignment">
+                {gradeTwelveAssignments.map((update, index) => (
+                  <div key={index}>
+                    <span>{update.title} </span>
+                    <span>{update.value} </span>
+                    <span>{update.subjectId}</span>
+                    <span>{update.grade}</span>
+                    {update?.dueDate && (
+                      <span>{formatDate(update?.dueDate.toDate())}</span>
+                    )}
+                    <Link
+                      to={`/teacher/assignment?id=${update.uid}`}
+                      className="btn btn-outline-primary"
+                    >
+                      Readmore
+                    </Link>
+                    <button onClick={() => deleteAssignment(update.uid)}>Delete</button>
+                  </div>
+                ))}
+              </div>
+          </div>
+          ):
+          (<></>)
+          }
+        </div>
+        {/* <div className="board">
           <div className="head">
             <h1>Title</h1>
             <h1>Description</h1>
@@ -116,7 +271,7 @@ function AdminDashboard(props) {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
