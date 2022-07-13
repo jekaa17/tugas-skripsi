@@ -21,12 +21,12 @@ button:hover {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 12rem;
 }
 
-.admin-card {
+.admin-card-timetable {
   width: 121.1rem;
-  height: 23.8rem;
+  height: auto;
+  padding: 3rem;
   background: rgba(68, 96, 239, 0.03);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
@@ -36,6 +36,7 @@ button:hover {
   justify-content: space-around;
   font-family: "Poppins", sans-serif;
   margin-bottom: 3.5rem;
+  margin: 2rem auto;
 }
 
 .image-logo img {
@@ -50,13 +51,13 @@ button:hover {
   margin-bottom: 2rem;
 }
 
-.admin-card h1 {
+.admin-card-timetable h1 {
   font-size: 3.2rem;
   font-weight: 400;
   margin-bottom: 2.8rem;
 }
 
-.admin-card input {
+.admin-card-timetable input {
   width: 30rem;
   border: none;
   border-bottom: 3px solid #4460ef;
@@ -64,11 +65,11 @@ button:hover {
   font-size: 2rem;
 }
 
-.admin-card input:focus {
+.admin-card-timetable input:focus {
   outline: none;
 }
 
-.admin-card select {
+.admin-card-timetable select {
   width: 19rem;
   height: 3.2rem;
   color: #ffffff;
@@ -84,7 +85,7 @@ button:hover {
   width: 50px;
 }
 
-.admin-card select option {
+.admin-card-timetable select option {
   width: 12rem;
   height: 3.2rem;
   background-color: white;
@@ -92,7 +93,7 @@ button:hover {
   outline: none;
 }
 
-.admin-card input {
+.admin-card-timetable input {
   width: 21rem !important;
 }
 
@@ -205,7 +206,7 @@ button:hover {
 
 .board {
   margin: auto;
-  width: 121.1rem;
+  width: 150rem;
   background: rgba(68, 96, 239, 0.03);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
@@ -241,9 +242,9 @@ button:hover {
 }
 
 .assignment div span {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 400;
-  padding-left: 6.5rem;
+  padding-left: 2.5rem;
   width: 17rem;
   text-align: left;
   height: 5rem;
@@ -251,24 +252,18 @@ button:hover {
 }
 
 .assignment div span:nth-child(2) {
-  padding-left: 7.43rem;
+  padding-left: 11.43rem;
   margin-left: -4.5rem;
-  width: 33rem;
 }
 
 .assignment div span:nth-child(3) {
-  padding-left: 0rem;
-  margin-left: -1rem;
+  padding-left: 6rem;
+  margin-left: 5rem;
   overflow: hidden;
 }
 
 .assignment div span:nth-child(4) {
-  padding-left: 5rem;
-  overflow: hidden;
-}
-
-.assignment div span:nth-child(5) {
-  padding-left: 0rem;
+  padding-left: 7rem;
   overflow: hidden;
 }
 
@@ -280,7 +275,7 @@ button:hover {
   border-radius: 10px;
   font-size: 1.8rem;
   color: white;
-  margin-right: 3rem;
+
   font-weight: 500;
 }
 
@@ -312,42 +307,74 @@ button:hover {
   color: #ffffff;
 }
 
-.assignment-container {
-  margin-top: 20px;
+.btn-timetable {
+  width: 16.5rem;
+  height: 4.3rem;
+  background: #4460ef;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  border-radius: 10px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: 27px;
+  text-align: center;
+  color: #ffffff;
+  border: none;
 }
 
-.toggle-button {
-  width: 121.1rem;
-  height: 40px;
-  background: #4460ef;
-  border-radius: 5px;
-  font-size: 14px;
+.container-timetable {
+  width: 100rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
 }
 
-.del-btn {
-  padding: 0.5rem;
-  background-color: #4460ef;
+.container-timetable2 {
+  width: 100rem;
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 3rem;
+}
+
+.container-timetable3 {
+  width: 100rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 3rem;
+}
+
+.edit-contain {
+  width: 65rem;
+  height: auto;
+  padding: 3rem;
+  background: rgba(68, 96, 239, 0.03);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 3.5rem;
+}
+
+.edit-contain input {
+  width: 30rem;
   border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  color: white;
-  font-weight: 500;
-  font-family: "Poppins", sans-serif;
+  border-bottom: 3px solid #4460ef;
+  background-color: #f9fafe;
+  font-size: 2rem;
 }
 
-span {
-  font-size: 1rem;
-  font-weight: 500;
-  font-family: "Poppins", sans-serif;
+.marbot {
+  margin-bottom: 3rem;
 }
 
-.styles-module_event__28gBZ {
-  background-color: #4460ef !important;
+.marleft {
+  margin-left: 3rem;
 }

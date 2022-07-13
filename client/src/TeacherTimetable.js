@@ -4,6 +4,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import Timetable from "react-timetable-events";
 import TimePicker from "react-time-picker";
 import Navbar from "./Navbar/Navbar";
+import "./TeacherTimetable.css";
 import { useParams } from "react-router-dom";
 
 function TeacherTimetable() {
@@ -111,52 +112,66 @@ function TeacherTimetable() {
 
   return (
     <>
-      <div>
-        <Navbar role="admin" />
-        <input
-          type="text"
-          className="Title__textBox  "
-          value={id}
-          onChange={(e) => setId(e.target.value)}
-          placeholder="Enter event id"
-        />
-        <input
-          type="text"
-          className="Value__textBox  "
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Enter event name"
-        />
-        <select required value={day} onChange={(e) => setDay(e.target.value)}>
-          <option value="">Select day</option>
-          <option value="monday">Monday</option>
-          <option value="tuesday">Tuesday</option>
-          <option value="wednesday">Wednesday</option>
-          <option value="thursday">Thursday</option>
-          <option value="friday">Friday</option>
-        </select>
-        <TimePicker
-          disableClock={true}
-          onChange={(newValue) => setStartTime(newValue)}
-          value={startTime}
-        />
-        <TimePicker
-          disableClock={true}
-          onChange={(newValue) => setEndTime(newValue)}
-          value={endTime}
-        />
-        <button onClick={submitEvent}>Add/Edit Event</button>
+      <Navbar role="admin" />
+      <div className="admin-card-timetable">
+        <div className="container-timetable ">
+          <input
+            type="text"
+            className="Title__textBox  "
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+            placeholder="Enter event id"
+          />
+          <input
+            type="text"
+            className="Value__textBox  "
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter event name"
+          />
+          <select required value={day} onChange={(e) => setDay(e.target.value)}>
+            <option value="">Select day</option>
+            <option value="monday">Monday</option>
+            <option value="tuesday">Tuesday</option>
+            <option value="wednesday">Wednesday</option>
+            <option value="thursday">Thursday</option>
+            <option value="friday">Friday</option>
+          </select>
+        </div>
+
+        <div className="container-timetable2">
+          <TimePicker
+            disableClock={true}
+            onChange={(newValue) => setStartTime(newValue)}
+            value={startTime}
+          />
+          <TimePicker
+            disableClock={true}
+            onChange={(newValue) => setEndTime(newValue)}
+            value={endTime}
+          />
+        </div>
+
+        <div className="container-timetable3">
+          <button className="btn marbot" onClick={submitEvent}>
+            Add/Edit Event
+          </button>
+
+          <div>
+            <input
+              type="text"
+              className="Title__textBox  "
+              value={idToDelete}
+              onChange={(e) => setIdToDelete(e.target.value)}
+              placeholder="Enter id to delete"
+            />
+            <button className="btn marleft" onClick={deleteEvent}>
+              Delete Event
+            </button>
+          </div>
+        </div>
       </div>
-      <div>
-        <input
-          type="text"
-          className="Title__textBox  "
-          value={idToDelete}
-          onChange={(e) => setIdToDelete(e.target.value)}
-          placeholder="Enter id to delete"
-        />
-        <button onClick={deleteEvent}>Delete Event</button>
-      </div>
+
       {Object.keys(timetable).length > 0 ? (
         <Timetable
           events={sortedTimetable()}
