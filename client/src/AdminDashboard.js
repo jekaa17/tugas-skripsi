@@ -56,6 +56,15 @@ function AdminDashboard(props) {
     }
   }
 
+  const sortAssignmentByDate = (array) => {
+    console.log(array)
+    array.sort(function(a,b){
+      // Turn your strings into dates, and then subtract them
+      // to get a value that is either negative, positive, or zero.
+      return (a.dueDate).toDate() - (b.dueDate).toDate();
+    });
+  }
+
   useEffect(() => {
     fetchUserName();
     if (props.userId) updateAssignment();
@@ -92,7 +101,7 @@ function AdminDashboard(props) {
           updateDocument={updateAssignment}
         />
         <StudentTimetable />
-        <div>
+        <div className='assignment-container'>
           <h2>Grade 10 assignments</h2>
           <div className='toggle-button' onClick={() => setGradeTenToggle((value) => !value)}>
             View
@@ -115,6 +124,7 @@ function AdminDashboard(props) {
               <div className="assignment">
                 {news
                   .filter((singleNews) => singleNews.grade === 'X')
+                  .sort(function(a,b) {return (b.dueDate).toDate() - (a.dueDate).toDate();})
                   .map((update, index) => (
                   <div key={index}>
                     <span>{update.title} </span>
@@ -140,7 +150,7 @@ function AdminDashboard(props) {
           }
         </div>
         
-        <div> 
+        <div className='assignment-container'> 
           <h2>Grade 11 assignments</h2>
           <div className='toggle-button' onClick={() => setGradeElevenToggle((value) => !value)}>
             View
@@ -163,6 +173,7 @@ function AdminDashboard(props) {
               <div className="assignment">
                 {news
                   .filter((singleNews) => singleNews.grade === 'XI')
+                  .sort(function(a,b) {return (b.dueDate).toDate() - (a.dueDate).toDate();})
                   .map((update, index) => (
                     <div key={index}>
                       <span>{update.title} </span>
@@ -188,7 +199,7 @@ function AdminDashboard(props) {
           }
         </div>
 
-        <div>
+        <div className='assignment-container'>
           <h2>Grade 12 assignments</h2>
           <div className='toggle-button' onClick={() => setGradeTwelveToggle((value) => !value)}>
             View
@@ -211,6 +222,7 @@ function AdminDashboard(props) {
               <div className="assignment">
                 {news
                   .filter((singleNews) => singleNews.grade === 'XII')
+                  .sort(function(a,b) {return (b.dueDate).toDate() - (a.dueDate).toDate();})
                   .map((update, index) => (
                   <div key={index}>
                     <span>{update.title} </span>
@@ -235,37 +247,6 @@ function AdminDashboard(props) {
           (<></>)
           }
         </div>
-        {/* <div className="board">
-          <div className="head">
-            <h1>Title</h1>
-            <h1>Description</h1>
-            <h1>Subject Id</h1>
-            <h1>Grade</h1>
-            <h1>Due Date</h1>
-            <div className="empty"></div>
-          </div>
-
-          <div className="assignment">
-            {news.map((update, index) => (
-              <div key={index}>
-                <span>{update.title} </span>
-                <span>{update.value} </span>
-                <span>{update.subjectId}</span>
-                <span>{update.grade}</span>
-                {update?.dueDate && (
-                  <span>{formatDate(update?.dueDate.toDate())}</span>
-                )}
-                <Link
-                  to={`/teacher/assignment?id=${update.uid}`}
-                  className="btn btn-outline-primary"
-                >
-                  Readmore
-                </Link>
-                <button onClick={() => deleteAssignment(update.uid)}>Delete</button>
-              </div>
-            ))}
-          </div>
-        </div> */}
       </div>
     </>
   );
