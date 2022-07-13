@@ -17,6 +17,12 @@ export const SidebarTeacherData = [
     cName: "nav-text",
   },
   {
+    title: "Timetable",
+    path: "/timetable",
+    icon: <SiBookstack />,
+    cName: "nav-text",
+  },
+  {
     title: "Exam",
     path: "/exam-teacher",
     icon: <SiGitbook />,

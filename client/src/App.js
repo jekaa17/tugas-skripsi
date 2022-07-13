@@ -13,6 +13,9 @@ import TeacherExamDetails from "./TeacherExamDetails";
 import ExamStudentDashboard from "./ExamStudentDashboard";
 import ExamStudentDetails from "./ExamStudentDetails";
 import ExamCard from "./ExamCard";
+import TimetableGradeList from "./TImetableGradeList";
+import TimetableSubjectList from "./TimetableSubjectList";
+import TeacherTimetable from "./TeacherTimetable";
 
 function App() {
   return (
@@ -29,6 +32,7 @@ function App() {
           />
           <Route path="/subject-dashboard" element={<SubjectDashboard />} />
           <Route exact path="/student-list" element={<GradeList />}></Route>
+          <Route exact path="/timetable" element={<TimetableGradeList />}></Route>
           <Route
             exact
             path="/student-list/:grade"
@@ -36,8 +40,18 @@ function App() {
           ></Route>
           <Route
             exact
+            path="/timetable/:grade"
+            element={<TimetableSubjectList />}
+          ></Route>
+          <Route
+            exact
             path="/student-list/:grade/:subject"
             element={<StudentList />}
+          ></Route>
+          <Route
+            exact
+            path="/timetable/:grade/:subject"
+            element={<TeacherTimetable />}
           ></Route>
           <Route
             exact

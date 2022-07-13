@@ -6,6 +6,7 @@ import { auth, db, logout, getNews } from "./firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import { formatDate, checkPassDueDate } from "./utils/DateHelper";
 import Navbar from "./Navbar/Navbar";
+import StudentTimetable from "./StudentTimetable";
 
 function StudentDashboard() {
   const [user, loading] = useAuthState(auth);
@@ -102,6 +103,8 @@ function StudentDashboard() {
         </div>
         <div className="underline"></div>
 
+        <StudentTimetable grade={grade} major={major} />
+
         <div className="board-container">
           <div className="board-left">
             <h1>To Do List</h1>
@@ -112,7 +115,6 @@ function StudentDashboard() {
                   <div key={index}>
                     <span>{update?.subjectId}</span>
                     <span>{update?.title}</span>
-                    {/* <span>{update?.value}</span> */}
                     {console.log(
                       checkPassDueDate(update?.dueDate.toDate()),
                       "DATE"

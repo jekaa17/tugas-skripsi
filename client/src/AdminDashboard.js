@@ -8,7 +8,6 @@ import NewsForm from "./NewsForm";
 import { formatDate } from "./utils/DateHelper";
 import "./AdminDashboard.css";
 import Navbar from "./Navbar/Navbar";
-import StudentTimetable from "./StudentTimetable";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
 
@@ -56,15 +55,6 @@ function AdminDashboard(props) {
     }
   }
 
-  const sortAssignmentByDate = (array) => {
-    console.log(array)
-    array.sort(function(a,b){
-      // Turn your strings into dates, and then subtract them
-      // to get a value that is either negative, positive, or zero.
-      return (a.dueDate).toDate() - (b.dueDate).toDate();
-    });
-  }
-
   useEffect(() => {
     fetchUserName();
     if (props.userId) updateAssignment();
@@ -100,7 +90,6 @@ function AdminDashboard(props) {
           userId={props.userId}
           updateDocument={updateAssignment}
         />
-        <StudentTimetable />
         <div className='assignment-container'>
           <h2>Grade 10 assignments</h2>
           <div className='toggle-button' onClick={() => setGradeTenToggle((value) => !value)}>
@@ -219,7 +208,7 @@ function AdminDashboard(props) {
                 <h1>Due Date</h1>
                 <div className="empty"></div>
               </div>
-              <div className="assignment">
+              <div className="assignment"> 
                 {news
                   .filter((singleNews) => singleNews.grade === 'XII')
                   .sort(function(a,b) {return (b.dueDate).toDate() - (a.dueDate).toDate();})
