@@ -126,31 +126,43 @@ function ExamStudentDashboard() {
         <div className="underline"></div>
 
         <div className="board-container-exam">
-          <div className="board-mid">
+          <div className="board">
             <h1>Exams</h1>
-            <div className="exam">
-              {exams
-                .filter((update) => !checkPassDueDate(update?.dueDate.toDate()))
-                .map((update, index) => (
-                  <div key={index}>
-                    <span>{update?.subjectId}</span>
-                    <span>{update?.title}</span>
-                    {/* <span>{update?.value}</span> */}
-                    {console.log(
-                      checkPassDueDate(update?.dueDate.toDate()),
-                      "DATE"
-                    )}
-                    {update?.dueDate && (
-                      <span>{formatDate(update?.dueDate.toDate())}</span>
-                    )}
-                    <button
-                      className="btn btn-link btn-outline-primary text-decoration-none"
-                      onClick={() => toExamDetails(update)}
-                    >
-                      Read More
-                    </button>
-                  </div>
-                ))}
+            <div className="board-examteacher">
+              <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Subject ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Due Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {exams
+                    .filter(
+                      (update) => !checkPassDueDate(update?.dueDate.toDate())
+                    )
+                    .map((update, index) => (
+                      <tr key={index}>
+                        <th scope="row">{index + 1}</th>
+                        <td>{update?.subjectId}</td>
+                        <td>{update?.title}</td>
+                        <td>{update?.value}</td>
+                        {update?.dueDate && (
+                          <td>{formatDate(update?.dueDate.toDate())}</td>
+                        )}
+                        <button
+                          className="btn btn-link btn-outline-primary text-decoration-none"
+                          onClick={() => toExamDetails(update)}
+                        >
+                          Read More
+                        </button>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

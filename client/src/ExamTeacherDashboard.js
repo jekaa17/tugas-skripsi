@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db, logout, getExamByTeacherId } from "./firebase";
-import { query, collection, getDocs, where, doc, deleteDoc } from "firebase/firestore";
+import {
+  query,
+  collection,
+  getDocs,
+  where,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import NewsForm from "./NewsForm";
 import { formatDate } from "./utils/DateHelper";
@@ -39,15 +46,15 @@ function ExamTeacherDashboard(props) {
     }
   };
 
-  const deleteExam = async(uid) => {
+  const deleteExam = async (uid) => {
     try {
       await deleteDoc(doc(db, "exams", uid));
       await updateExam();
       alert("exam deleted");
     } catch (err) {
-      alert("An error occured while deleting exam")
+      alert("An error occured while deleting exam");
     }
-  }
+  };
 
   useEffect(() => {
     if (loading) return;
@@ -85,34 +92,46 @@ function ExamTeacherDashboard(props) {
         <div className="underline"></div>
 
         <NewsForm type="exam" userId={user?.uid} updateDocument={updateExam} />
-        <div className="board">
-          <div className="head">
-            <h1>Subject ID</h1>
-            <h1>Title</h1>
-            <h1>Description</h1>
-            <h1>Due Date</h1>
-            <div className="empty"></div>
-          </div>
+        <div className="board-examteacher">
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Grade</th>
+                <th scope="col">Subject ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Due Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {exams.map((exam, index) => (
+                <tr key={index}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{exam?.grade}</td>
+                  <td>{exam?.title}</td>
+                  <td>{exam?.value}</td>
+                  <td>{exam?.subjectId}</td>
+                  {exam?.dueDate && (
+                    <td>{formatDate(exam?.dueDate.toDate())}</td>
+                  )}
+                  <Link
+                    to={`/exam-teacher/details?id=${exam.uid}`}
+                    className="btn-readmore"
+                  >
+                    Readmore
+                  </Link>
 
-          <div className="assignment">
-            {exams.map((exam, index) => (
-              <div key={index}>
-                <span>{exam.title} </span>
-                <span>{exam.value} </span>
-                <span>{exam.subjectId}</span>
-                {exam?.dueDate && (
-                  <span>{formatDate(exam?.dueDate.toDate())}</span>
-                )}
-                <Link
-                  to={`/exam-teacher/details?id=${exam.uid}`}
-                  className="btn btn-outline-primary"
-                >
-                  Readmore
-                </Link>
-                <button onClick={() => deleteExam(exam.uid)}>Delete</button>
-              </div>
-            ))}
-          </div>
+                  <button
+                    className="del-btn"
+                    onClick={() => deleteExam(exam.uid)}
+                  >
+                    Delete
+                  </button>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </>

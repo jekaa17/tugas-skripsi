@@ -53,33 +53,36 @@ function ExamCard() {
       </>
     );
   return (
-    <div className="exam_card_page">
-      <div className="exam_card">
-        <div className="exam_card_details">
-          <h1>{studentDetails.name}</h1>
-          <h2>{studentDetails.email}</h2>
-          <h3>{studentDetails.nis}</h3>
-          <h3>
-            {studentDetails.grade} - {studentDetails.major}
-          </h3>
-          <h3>Finance: {studentDetails.finance ? "COMPLETED" : "PENDING"}</h3>
-          <div>
-            {studentDetails.subjects.map((subject) => (
-              <div key={subject}>{subject}</div>
-            ))}
+    <>
+      <Navbar />
+      <div className="exam_card_page">
+        <div className="exam_card">
+          <div className="exam_card_details">
+            <h1>{studentDetails.name}</h1>
+            <h2>{studentDetails.email}</h2>
+            <h3>{studentDetails.nis}</h3>
+            <h3>
+              {studentDetails.grade} - {studentDetails.major}
+            </h3>
+            <h3>Finance: {studentDetails.finance ? "COMPLETED" : "PENDING"}</h3>
+            <div>
+              {studentDetails.subjects.map((subject) => (
+                <div key={subject}>{subject}</div>
+              ))}
+            </div>
+          </div>
+          <div className="exam_card_icon">
+            <a href="">
+              <img
+                className="temp-img"
+                src="./images/square-check-solid.svg"
+                alt="alert"
+              />
+            </a>
           </div>
         </div>
-        <div className="exam_card_icon">
-          <a href="">
-            <img
-              className="temp-img"
-              src="./images/square-check-solid.svg"
-              alt="alert"
-            />
-          </a>
-        </div>
       </div>
-    </div>
+    </>
   );
 }
 

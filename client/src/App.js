@@ -32,7 +32,11 @@ function App() {
           />
           <Route path="/subject-dashboard" element={<SubjectDashboard />} />
           <Route exact path="/student-list" element={<GradeList />}></Route>
-          <Route exact path="/timetable" element={<TimetableGradeList />}></Route>
+          <Route
+            exact
+            path="/timetable"
+            element={<TimetableGradeList />}
+          ></Route>
           <Route
             exact
             path="/student-list/:grade"

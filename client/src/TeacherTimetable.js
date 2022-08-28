@@ -175,7 +175,7 @@ function TeacherTimetable() {
       {Object.keys(timetable).length > 0 ? (
         <Timetable
           events={sortedTimetable()}
-          style={{ height: "500px", width: "80%" }}
+          style={{ height: "500px", width: "57%" }}
         />
       ) : (
         <></>

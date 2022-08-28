@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
-import { auth, logInWithEmailAndPassword, sendPasswordReset} from "./firebase";
+import { auth, logInWithEmailAndPassword, sendPasswordReset } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 function Login() {
@@ -29,6 +29,7 @@ function Login() {
           <div className="image">
             <img src="./images/pscn.png" alt="teacher" />
           </div>
+
           <div className="details">
             <label htmlFor="email">Email</label>
             <input

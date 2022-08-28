@@ -103,31 +103,36 @@ function SubjectDashboard() {
         </div>
         <div className="underline"></div>
         <div className="board">
-          <div className="head">
-            <h1>Subject ID</h1>
-            <h1>Title</h1>
-            <h1>Description</h1>
-            <h1>Due Date</h1>
-            <div className="empty"></div>
-          </div>
-          <div className="assignment">
-            {news.map((update, index) => (
-              <div key={index}>
-                <span>{update?.subjectId}</span>
-                <span>{update?.title}</span>
-                <span>{update?.value}</span>
-                {update?.dueDate && (
-                  <span>{formatDate(update?.dueDate.toDate())}</span>
-                )}
-                <button
-                  className="btn btn-link btn-outline-primary text-decoration-none"
-                  onClick={() => toAssgDetails(update)}
-                >
-                  Readmore
-                </button>
-              </div>
-            ))}
-          </div>
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Subject ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Due Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {news.map((update, index) => (
+                <tr key={index}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{update?.subjectId}</td>
+                  <td>{update?.title}</td>
+                  <td>{update?.value}</td>
+                  {update?.dueDate && (
+                    <td>{formatDate(update?.dueDate.toDate())}</td>
+                  )}
+                  <button
+                    className="btn btn-link btn-outline-primary text-decoration-none"
+                    onClick={() => toAssgDetails(update)}
+                  >
+                    Readmore
+                  </button>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </>

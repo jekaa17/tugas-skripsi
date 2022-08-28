@@ -24,6 +24,19 @@ button:hover {
   justify-content: flex-start;
 }
 
+.table {
+  border-collapse: separate;
+  border-spacing: 1em;
+  }
+
+.head{
+  margin-right: 6rem;
+  
+}
+.h1 div:nth-child(4){
+  padding-right:10rem;
+}
+
 .heading {
   display: flex;
   align-items: center;
@@ -272,3 +285,5 @@ button:hover {
   text-decoration: none;
   color: rgb(43, 42, 42);
 }
+
+
