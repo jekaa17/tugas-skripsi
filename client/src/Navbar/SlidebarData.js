@@ -30,6 +30,27 @@ export const SidebarTeacherData = [
   },
 ];
 
+export const SidebarAdminData = [
+  {
+    title: "Home",
+    path: "/dashboard",
+    icon: <AiIcons.AiFillHome />,
+    cName: "nav-text",
+  },
+  {
+    title: "Student List",
+    path: "/student-list",
+    icon: <SiBookstack />,
+    cName: "nav-text",
+  },
+  {
+    title: "Timetable",
+    path: "/timetable",
+    icon: <SiBookstack />,
+    cName: "nav-text",
+  },
+];
+
 export const SidebarStudentData = [
   {
     title: "Home",

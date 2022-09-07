@@ -19,6 +19,8 @@ function Dashboard() {
       const role = data.role;
       if (role === "admin") {
         setRole("admin");
+      } else if (role === "teacher") {
+        setRole("teacher");
       } else {
         setRole("student");
       }
@@ -35,7 +37,8 @@ function Dashboard() {
   }, [user]);
 
   if (role === "student") return <StudentDashboard />;
-  if (role === "admin") return <AdminDashboard userId={user?.uid} />;
+  if (role === "admin" || role === "teacher")
+    return <AdminDashboard userId={user?.uid} />;
 
   return <p> loading ... </p>;
 }

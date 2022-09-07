@@ -69,7 +69,7 @@ function ExamTeacherDashboard(props) {
 
   return (
     <>
-      <Navbar role="admin" />
+      <Navbar />
       <div className="page">
         <div className="heading">
           <div className="name">

@@ -10,12 +10,46 @@ import {
   where,
   setDoc,
 } from "firebase/firestore";
-import { db } from "./firebase";
+import { db, auth } from "./firebase";
 import { useParams } from "react-router-dom";
 import Navbar from "./Navbar/Navbar";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
+
 function StudentList() {
   const { grade, subject } = useParams();
   const [students, setStudents] = useState([]);
+  const [user, loading] = useAuthState(auth);
+  const [role, setRole] = useState("");
+  const navigate = useNavigate();
+
+  const fetchUserName = async () => {
+    try {
+      const q = query(collection(db, "users"), where("uid", "==", user?.uid));
+      const doc = await getDocs(q);
+      const data = doc.docs[0]?.data();
+      if (!data) return;
+      const role = data.role;
+      console.log(data);
+      if (role === "admin") {
+        setRole("admin");
+      } else if (role === "teacher") {
+        setRole("teacher");
+      } else {
+        setRole("student");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("An error occured while fetching user data");
+    }
+  };
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/");
+    if (user) fetchUserName();
+  }, [user]);
+
   const getAllStudents = async (subject, grade) => {
     try {
       const q = query(
@@ -41,6 +75,8 @@ function StudentList() {
   }, []);
 
   const financeCheck = async (docId, boolean) => {
+    console.log(role);
+
     const docRef = doc(db, "users", `${docId}`);
     const docSnap = await updateDoc(docRef, {
       finance: boolean,
@@ -49,7 +85,7 @@ function StudentList() {
 
   return (
     <>
-      <Navbar role="admin" />
+      <Navbar />
       <table className="table">
         <thead>
           <tr>
@@ -70,9 +106,10 @@ function StudentList() {
                   <input
                     type="checkbox"
                     defaultChecked={student.finance}
-                    onChange={(e) =>
-                      financeCheck(student.docId, e.target.checked)
-                    }
+                    onChange={(e) => {
+                      financeCheck(student.docId, e.target.checked);
+                    }}
+                    disabled={role !== "admin"}
                   />
                 </td>
               </tr>

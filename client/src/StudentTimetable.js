@@ -55,16 +55,24 @@ function StudentTimetable({ grade, major }) {
   };
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "121.1rem",
+        margin: "0 auto",
+      }}
+    >
       {Object.keys(timetable).length > 0 ? (
         <Timetable
           events={sortedTimetable()}
-          style={{ height: "500px", width: "57%" }}
+          style={{ height: "500px", width: "100%" }}
         />
       ) : (
         <></>
       )}
-    </>
+    </div>
   );
 }
 

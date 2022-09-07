@@ -25,6 +25,7 @@ import {
 function AdminDashboard(props) {
   const [user] = useAuthState(auth);
   const [name, setName] = useState("");
+  const [role, setRole] = useState("");
   const [news, setNews] = useState([]);
   const [gradeTenToggle, setGradeTenToggle] = useState(true);
   const [gradeElevenToggle, setGradeElevenToggle] = useState(true);
@@ -36,6 +37,7 @@ function AdminDashboard(props) {
       const doc = await getDocs(q);
       const data = doc.docs[0].data();
       setName(data.name);
+      setRole(data.role);
     } catch (err) {
       console.error(err);
       alert("An error occured while fetching user data");
@@ -65,6 +67,11 @@ function AdminDashboard(props) {
     }
   };
 
+  const titleCase = (string) => {
+    if (!string) return;
+    return string[0].toUpperCase() + string.slice(1).toLowerCase();
+  };
+
   useEffect(() => {
     fetchUserName();
     if (props.userId) updateAssignment();
@@ -72,7 +79,7 @@ function AdminDashboard(props) {
 
   return (
     <>
-      <Navbar role="admin" />
+      <Navbar />
       <div className="page">
         <div className="heading">
           <div className="name">
@@ -83,10 +90,10 @@ function AdminDashboard(props) {
             <div>{user?.email}</div>
           </div>
           <div className="title">
-            <h1>Admin Dashboard</h1>
+            <h1>{titleCase(role)} Dashboard</h1>
           </div>
           <div className="log">
-            <h2>Logged In As Admin</h2>
+            <h2>Logged In As {titleCase(role)}</h2>
             <button className="dashboard__btn" onClick={logout}>
               Log out
             </button>
@@ -94,221 +101,225 @@ function AdminDashboard(props) {
         </div>
         <div className="underline"></div>
 
-        <Register />
-        <NewsForm
-          type="assignment"
-          userId={props.userId}
-          updateDocument={updateAssignment}
-        />
-        <div className="assignment-container">
-          <h2>Grade 10 assignments</h2>
-          <div
-            className="toggle-button"
-            onClick={() => setGradeTenToggle((value) => !value)}
-          >
-            {gradeTenToggle ? (
-              <>
-                View
-                <FontAwesomeIcon icon={solid("chevron-down")} />
-              </>
-            ) : (
-              <>
-                Hide
-                <FontAwesomeIcon icon={solid("chevron-up")} />
-              </>
-            )}
-          </div>
-          {!gradeTenToggle ? (
-            <div className="board">
-              <table class="table table-borderless">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Subject ID</th>
-                    <th scope="col">Grade </th>
-                    <th scope="col">Due Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {news
-                    .filter((singleNews) => singleNews.grade === "X")
-                    .sort(function (a, b) {
-                      return b.dueDate.toDate() - a.dueDate.toDate();
-                    })
-                    .map((update, index) => (
-                      <tr key={index}>
-                        <th scope="row">{index + 1}</th>
-                        <td>{update.title} </td>
-                        <td>{update.value} </td>
-                        <td>{update.subjectId}</td>
-                        <td>{update.grade}</td>
-                        {update?.dueDate && (
-                          <td>{formatDate(update?.dueDate.toDate())}</td>
-                        )}
-                        <Link
-                          to={`/teacher/assignment?id=${update.uid}`}
-                          className="btn-readmore "
-                        >
-                          Readmore
-                        </Link>
-                        <button
-                          className="del-btn"
-                          onClick={() => deleteAssignment(update.uid)}
-                        >
-                          Delete
-                        </button>
+        {role === "admin" && <Register />}
+        {role === "teacher" && (
+          <div>
+            <NewsForm
+              type="assignment"
+              userId={props.userId}
+              updateDocument={updateAssignment}
+            />
+            <div className="assignment-container">
+              <h2>Grade 10 assignments</h2>
+              <div
+                className="toggle-button"
+                onClick={() => setGradeTenToggle((value) => !value)}
+              >
+                {gradeTenToggle ? (
+                  <>
+                    View
+                    <FontAwesomeIcon icon={solid("chevron-down")} />
+                  </>
+                ) : (
+                  <>
+                    Hide
+                    <FontAwesomeIcon icon={solid("chevron-up")} />
+                  </>
+                )}
+              </div>
+              {!gradeTenToggle ? (
+                <div className="board">
+                  <table className="table table-borderless">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Subject ID</th>
+                        <th scope="col">Grade </th>
+                        <th scope="col">Due Date</th>
                       </tr>
-                    ))}
-                </tbody>
-              </table>
-              <div className="assignment"></div>
+                    </thead>
+                    <tbody>
+                      {news
+                        .filter((singleNews) => singleNews.grade === "X")
+                        .sort(function (a, b) {
+                          return b.dueDate.toDate() - a.dueDate.toDate();
+                        })
+                        .map((update, index) => (
+                          <tr key={index}>
+                            <th scope="row">{index + 1}</th>
+                            <td>{update.title} </td>
+                            <td>{update.value} </td>
+                            <td>{update.subjectId}</td>
+                            <td>{update.grade}</td>
+                            {update?.dueDate && (
+                              <td>{formatDate(update?.dueDate.toDate())}</td>
+                            )}
+                            <Link
+                              to={`/teacher/assignment?id=${update.uid}`}
+                              className="btn-readmore "
+                            >
+                              Readmore
+                            </Link>
+                            <button
+                              className="del-btn"
+                              onClick={() => deleteAssignment(update.uid)}
+                            >
+                              Delete
+                            </button>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                  <div className="assignment"></div>
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
-          ) : (
-            <></>
-          )}
-        </div>
 
-        <div className="assignment-container">
-          <h2>Grade 11 assignments</h2>
-          <div
-            className="toggle-button"
-            onClick={() => setGradeElevenToggle((value) => !value)}
-          >
-            {gradeElevenToggle ? (
-              <>
-                View
-                <FontAwesomeIcon icon={solid("chevron-down")} />
-              </>
-            ) : (
-              <>
-                Hide
-                <FontAwesomeIcon icon={solid("chevron-up")} />
-              </>
-            )}
-          </div>
-          {!gradeElevenToggle ? (
-            <div className="board">
-              <table class="table table-borderless">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Subject ID</th>
-                    <th scope="col">Grade </th>
-                    <th scope="col">Due Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {news
-                    .filter((singleNews) => singleNews.grade === "XI")
-                    .sort(function (a, b) {
-                      return b.dueDate.toDate() - a.dueDate.toDate();
-                    })
-                    .map((update, index) => (
-                      <tr key={index}>
-                        <th scope="row">{index + 1}</th>
-                        <td>{update.title} </td>
-                        <td>{update.value} </td>
-                        <td>{update.subjectId}</td>
-                        <td>{update.grade}</td>
-                        {update?.dueDate && (
-                          <td>{formatDate(update?.dueDate.toDate())}</td>
-                        )}
-                        <Link
-                          to={`/teacher/assignment?id=${update.uid}`}
-                          className="btn-readmore "
-                        >
-                          Readmore
-                        </Link>
-                        <button
-                          className="del-btn"
-                          onClick={() => deleteAssignment(update.uid)}
-                        >
-                          Delete
-                        </button>
+            <div className="assignment-container">
+              <h2>Grade 11 assignments</h2>
+              <div
+                className="toggle-button"
+                onClick={() => setGradeElevenToggle((value) => !value)}
+              >
+                {gradeElevenToggle ? (
+                  <>
+                    View
+                    <FontAwesomeIcon icon={solid("chevron-down")} />
+                  </>
+                ) : (
+                  <>
+                    Hide
+                    <FontAwesomeIcon icon={solid("chevron-up")} />
+                  </>
+                )}
+              </div>
+              {!gradeElevenToggle ? (
+                <div className="board">
+                  <table class="table table-borderless">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Subject ID</th>
+                        <th scope="col">Grade </th>
+                        <th scope="col">Due Date</th>
                       </tr>
-                    ))}
-                </tbody>
-              </table>
-              <div className="assignment"></div>
+                    </thead>
+                    <tbody>
+                      {news
+                        .filter((singleNews) => singleNews.grade === "XI")
+                        .sort(function (a, b) {
+                          return b.dueDate.toDate() - a.dueDate.toDate();
+                        })
+                        .map((update, index) => (
+                          <tr key={index}>
+                            <th scope="row">{index + 1}</th>
+                            <td>{update.title} </td>
+                            <td>{update.value} </td>
+                            <td>{update.subjectId}</td>
+                            <td>{update.grade}</td>
+                            {update?.dueDate && (
+                              <td>{formatDate(update?.dueDate.toDate())}</td>
+                            )}
+                            <Link
+                              to={`/teacher/assignment?id=${update.uid}`}
+                              className="btn-readmore "
+                            >
+                              Readmore
+                            </Link>
+                            <button
+                              className="del-btn"
+                              onClick={() => deleteAssignment(update.uid)}
+                            >
+                              Delete
+                            </button>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                  <div className="assignment"></div>
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
-          ) : (
-            <></>
-          )}
-        </div>
 
-        <div className="assignment-container">
-          <h2>Grade 12 assignments</h2>
-          <div
-            className="toggle-button"
-            onClick={() => setGradeTwelveToggle((value) => !value)}
-          >
-            {gradeTwelveToggle ? (
-              <>
-                View
-                <FontAwesomeIcon icon={solid("chevron-down")} />
-              </>
-            ) : (
-              <>
-                Hide
-                <FontAwesomeIcon icon={solid("chevron-up")} />
-              </>
-            )}
-          </div>
-          {!gradeTwelveToggle ? (
-            <div className="board">
-              <table class="table table-borderless">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Subject ID</th>
-                    <th scope="col">Grade </th>
-                    <th scope="col">Due Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {news
-                    .filter((singleNews) => singleNews.grade === "XII")
-                    .sort(function (a, b) {
-                      return b.dueDate.toDate() - a.dueDate.toDate();
-                    })
-                    .map((update, index) => (
-                      <tr key={index}>
-                        <th scope="row">{index + 1}</th>
-                        <td>{update.title} </td>
-                        <td>{update.value} </td>
-                        <td>{update.subjectId}</td>
-                        <td>{update.grade}</td>
-                        {update?.dueDate && (
-                          <td>{formatDate(update?.dueDate.toDate())}</td>
-                        )}
-                        <Link
-                          to={`/teacher/assignment?id=${update.uid}`}
-                          className="btn-readmore "
-                        >
-                          Readmore
-                        </Link>
-                        <button
-                          className="del-btn"
-                          onClick={() => deleteAssignment(update.uid)}
-                        >
-                          Delete
-                        </button>
+            <div className="assignment-container">
+              <h2>Grade 12 assignments</h2>
+              <div
+                className="toggle-button"
+                onClick={() => setGradeTwelveToggle((value) => !value)}
+              >
+                {gradeTwelveToggle ? (
+                  <>
+                    View
+                    <FontAwesomeIcon icon={solid("chevron-down")} />
+                  </>
+                ) : (
+                  <>
+                    Hide
+                    <FontAwesomeIcon icon={solid("chevron-up")} />
+                  </>
+                )}
+              </div>
+              {!gradeTwelveToggle ? (
+                <div className="board">
+                  <table class="table table-borderless">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Subject ID</th>
+                        <th scope="col">Grade </th>
+                        <th scope="col">Due Date</th>
                       </tr>
-                    ))}
-                </tbody>
-              </table>
-              <div className="assignment"></div>
+                    </thead>
+                    <tbody>
+                      {news
+                        .filter((singleNews) => singleNews.grade === "XII")
+                        .sort(function (a, b) {
+                          return b.dueDate.toDate() - a.dueDate.toDate();
+                        })
+                        .map((update, index) => (
+                          <tr key={index}>
+                            <th scope="row">{index + 1}</th>
+                            <td>{update.title} </td>
+                            <td>{update.value} </td>
+                            <td>{update.subjectId}</td>
+                            <td>{update.grade}</td>
+                            {update?.dueDate && (
+                              <td>{formatDate(update?.dueDate.toDate())}</td>
+                            )}
+                            <Link
+                              to={`/teacher/assignment?id=${update.uid}`}
+                              className="btn-readmore "
+                            >
+                              Readmore
+                            </Link>
+                            <button
+                              className="del-btn"
+                              onClick={() => deleteAssignment(update.uid)}
+                            >
+                              Delete
+                            </button>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                  <div className="assignment"></div>
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
-          ) : (
-            <></>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </>
   );

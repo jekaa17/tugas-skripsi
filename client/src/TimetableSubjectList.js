@@ -10,7 +10,7 @@ function TimetableSubjectList() {
   const { grade } = useParams();
   return (
     <>
-      <Navbar role="admin" />
+      <Navbar />
       <div className="rows">
         {allSubjects.map((subject) => (
           <Link
