@@ -83,9 +83,6 @@ function SubjectDashboard() {
       <div className="page">
         <div className="heading">
           <div className="name">
-            <div className="image-logo">
-              <img src="./images/pscn.png" alt="teacher" />
-            </div>
             <div>{name}</div>
             <div>{grade}</div>
             <div>{major}</div>

@@ -84,9 +84,6 @@ function AdminDashboard(props) {
       <div className="page">
         <div className="heading">
           <div className="name">
-            <div className="image-logo">
-              <img src="./images/pscn.png" alt="teacher" />
-            </div>
             <div>{name}</div>
             <div>{user?.email}</div>
           </div>
