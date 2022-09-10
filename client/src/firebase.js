@@ -42,17 +42,17 @@ const logInWithEmailAndPassword = async (email, password) => {
 
 const sendPasswordReset = (email) => {
   sendPasswordResetEmail(auth, email)
-  .then(() => {
-    alert('Password reset email sent!');
-    // ..
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    alert(`${error.message}`)
-    // ..
-  });
-}
+    .then(() => {
+      alert("Password reset email sent!");
+      // ..
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(`${error.message}`);
+      // ..
+    });
+};
 
 const registerWithEmailAndPassword = async (
   name,
@@ -64,22 +64,24 @@ const registerWithEmailAndPassword = async (
 ) => {
   try {
     const data = { email: email, password: password };
-    const userUid = await fetch('https://us-central1-skripsi-cf882.cloudfunctions.net/api/createNewUser', {
-      method: 'POST', // or 'PUT'
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data);
-      return data.uid
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-
+    const userUid = await fetch(
+      "https://us-central1-skripsi-cf882.cloudfunctions.net/api/createNewUser",
+      {
+        method: "POST", // or 'PUT'
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        return data.uid;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
 
     await addDoc(collection(db, "users"), {
       uid: userUid,
@@ -94,9 +96,42 @@ const registerWithEmailAndPassword = async (
         subject === "IPA"
           ? ["Bahasa Indonesia", "Mat", "IPA"]
           : ["Bahasa Indonesia", "Mat", "IPS"],
-    })
-    .then(() => alert('new user created'))
-    
+    }).then(() => alert("new student created"));
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+
+const registerTeacherWithEmailAndPassword = async (name, email, password) => {
+  try {
+    const data = { email: email, password: password };
+    const userUid = await fetch(
+      "https://us-central1-skripsi-cf882.cloudfunctions.net/api/createNewUser",
+      {
+        method: "POST", // or 'PUT'
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        return data.uid;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    await addDoc(collection(db, "users"), {
+      uid: userUid,
+      name,
+      authProvider: "local",
+      email,
+      role: "teacher",
+    }).then(() => alert("new teacher created"));
   } catch (err) {
     console.error(err);
     alert(err.message);
@@ -121,8 +156,7 @@ const createNews = async (
       dueDate,
       uid,
       teacherId,
-    })
-    .then(() => alert('new assignment created'))
+    }).then(() => alert("new assignment created"));
   } catch (err) {
     console.error(err);
     alert("An error occured while uploading news");
@@ -147,8 +181,7 @@ const createExam = async (
       dueDate,
       uid,
       teacherId,
-    })
-    .then(() => alert('new exam created'))
+    }).then(() => alert("new exam created"));
   } catch (err) {
     console.error(err);
     alert("An error occured while uploading exams");
@@ -246,6 +279,7 @@ export {
   storage,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
+  registerTeacherWithEmailAndPassword,
   logout,
   getNews,
   getExams,
@@ -255,5 +289,5 @@ export {
   getExamByTeacherId,
   createNews,
   createExam,
-  sendPasswordReset
+  sendPasswordReset,
 };

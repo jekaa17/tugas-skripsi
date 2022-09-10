@@ -10,6 +10,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import Register from "./Register";
+import RegisterTeacher from "./RegisterTeacher";
 import { Link } from "react-router-dom";
 import NewsForm from "./NewsForm";
 import { formatDate } from "./utils/DateHelper";
@@ -102,6 +103,7 @@ function AdminDashboard(props) {
         <div className="underline"></div>
 
         {role === "admin" && <Register />}
+        {role === "admin" && <RegisterTeacher />}
         {role === "teacher" && (
           <div>
             <NewsForm

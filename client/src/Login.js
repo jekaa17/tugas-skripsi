@@ -22,12 +22,12 @@ function Login() {
 
   return (
     <div className="page">
-      <div className="sign-in">
+      <div className="sign-in title">
         <h1>Sign In</h1>
 
         <div className="fill">
           <div className="image">
-            <img src="./images/pscn.png" alt="teacher" />
+            <img src="./images/study-group.jpeg" alt="teacher" />
           </div>
 
           <div className="details">
