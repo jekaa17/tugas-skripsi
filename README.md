@@ -5,7 +5,7 @@ You will need node and npm installed globally on your machine.
 ## 1. Install node.js and npm
 
 ```
-download and install node.js from https://nodejs.org/en/download (it will install npm at the same time)
+download and install node.js from https://nodejs.org/en/download/ (it will install npm at the same time)
 ```
 
 ## 2. Clone the repository or download the zip
