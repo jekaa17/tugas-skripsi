@@ -8,25 +8,25 @@ You will need node and npm installed globally on your machine.
 download and install node.js from https://nodejs.org/en/download/ (it will install npm at the same time)
 ```
 
-## 1. Clone the repository or download the zip
+## 2. Clone the repository or download the zip
 
 ```
 git clone https://github.com/jekaa17/tugas-skripsi
 ```
 
-## 2. Add new terminal and go to client directory
+## 3. Add new terminal and go to client directory
 
 ```
 cd client
 ```
 
-## 3. Install the dependencies
+## 4. Install the dependencies
 
 ```
 npm install
 ```
 
-## 4. Run the application
+## 5. Run the application
 
 ```
 npm start
