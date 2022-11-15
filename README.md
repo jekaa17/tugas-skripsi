@@ -1,6 +1,6 @@
 # Getting Started/Installation
 
-You will need node and npm installed globally on your machine.
+- You will need node and npm installed globally on your machine.
 
 ## 1. Install node.js and npm
 
@@ -17,7 +17,7 @@ git clone https://github.com/jekaa17/tugas-skripsi
 ## 3. Add new terminal and go to client directory
 
 ```
-cd client
+* cd client
 ```
 
 ## 4. Install the dependencies
